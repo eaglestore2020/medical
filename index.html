@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b192c">
-  <title>إيجل للمستلزمات الطبية | الكتالوج والأسعار</title>
+  <title>إيجل للمستلزمات الطبية | الكتالوج والدليل الطبي</title>
   <link id="pwa-manifest" rel="manifest" href="">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +20,7 @@
       --text-muted: #94a3b8;
       --success: #22c55e;
       --danger: #ef4444;
+      --gold: #f59e0b;
     }
 
     * {
@@ -32,54 +33,93 @@
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      padding-bottom: 95px;
+      padding-bottom: 110px;
     }
 
     header {
       background: linear-gradient(135deg, #0b192c 0%, #112a46 100%);
       border-bottom: 1px solid var(--border-color);
-      padding: 16px 16px 14px;
+      padding: 14px 16px 12px;
       position: sticky;
       top: 0;
       z-index: 20;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.45);
     }
 
     .header-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      gap: 8px;
     }
 
     .store-title {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 900;
       color: #38bdf8;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .store-sub {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
-    .install-btn {
-      background: rgba(14, 165, 233, 0.2);
-      border: 1px solid var(--primary);
-      color: #7dd3fc;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 11.5px;
-      font-weight: 700;
+    .price-mode-switch {
+      display: flex;
+      background: #081220;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 3px;
+      margin-bottom: 10px;
+    }
+
+    .mode-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      border-radius: 9px;
+      font-size: 12.5px;
+      font-weight: 800;
       cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .mode-btn.active-retail {
+      background: var(--primary);
+      color: #081220;
+    }
+
+    .mode-btn.active-wholesale {
+      background: var(--gold);
+      color: #081220;
+    }
+
+    .rx-banner {
+      background: linear-gradient(90deg, rgba(34, 197, 94, 0.16), rgba(14, 165, 233, 0.16));
+      border: 1px dashed rgba(74, 222, 128, 0.5);
+      border-radius: 11px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .rx-banner strong {
+      color: #4ade80;
     }
 
     .search-box {
       position: relative;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .search-input {
@@ -87,9 +127,9 @@
       background: #081220;
       border: 1.5px solid var(--border-color);
       border-radius: 12px;
-      padding: 10px 38px 10px 14px;
+      padding: 9px 36px 9px 14px;
       color: #fff;
-      font-size: 13.5px;
+      font-size: 13px;
       outline: none;
     }
 
@@ -102,14 +142,14 @@
       right: 12px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .categories-bar {
       display: flex;
       gap: 7px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
       scrollbar-width: none;
     }
 
@@ -121,13 +161,12 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
       color: #cbd5e1;
-      padding: 5px 14px;
+      padding: 4px 13px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
-      transition: 0.2s;
     }
 
     .cat-pill.active {
@@ -139,19 +178,19 @@
     .container {
       max-width: 650px;
       margin: 0 auto;
-      padding: 14px;
+      padding: 12px 14px;
     }
 
     .product-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 14px;
+      padding: 13px;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
     }
 
     .product-card.out-of-stock {
@@ -161,13 +200,13 @@
     .prod-body {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
       flex: 1;
     }
 
     .prod-img {
-      width: 75px;
-      height: 75px;
+      width: 72px;
+      height: 72px;
       object-fit: cover;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -182,48 +221,41 @@
     .prod-meta {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       margin-bottom: 4px;
       flex-wrap: wrap;
     }
 
     .prod-cat {
-      font-size: 10.5px;
+      font-size: 10px;
       background: rgba(14, 165, 233, 0.15);
       color: #7dd3fc;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 6px;
       font-weight: 700;
     }
 
     .prod-status {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 6px;
     }
 
-    .status-in {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-    }
-
-    .status-out {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-    }
+    .status-in { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+    .status-out { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
     .prod-name {
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .prod-note {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .prod-price {
@@ -232,20 +264,24 @@
       color: #38bdf8;
     }
 
+    .prod-price.wholesale {
+      color: #fbbf24;
+    }
+
     .qty-controls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       background: #081220;
-      padding: 5px 8px;
-      border-radius: 12px;
+      padding: 5px 7px;
+      border-radius: 11px;
       border: 1px solid var(--border-color);
       flex-shrink: 0;
     }
 
     .qty-btn {
-      width: 28px;
-      height: 28px;
+      width: 27px;
+      height: 27px;
       border-radius: 8px;
       border: none;
       background: var(--primary);
@@ -253,9 +289,6 @@
       font-size: 16px;
       font-weight: 900;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .qty-btn.minus {
@@ -264,46 +297,131 @@
     }
 
     .qty-val {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 800;
-      min-width: 20px;
+      min-width: 18px;
       text-align: center;
+    }
+
+    .dir-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .dir-badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.16);
+      color: #fca5a5;
+      margin-bottom: 4px;
+    }
+
+    .dir-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .dir-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .dir-hours {
+      font-size: 11.5px;
+      color: #7dd3fc;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    .call-btn {
+      background: var(--success);
+      color: #052e16;
+      text-decoration: none;
+      padding: 9px 14px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
     }
 
     .cart-bar {
       position: fixed;
-      bottom: 0;
+      bottom: 58px;
       left: 0;
       right: 0;
       background: linear-gradient(90deg, #0284c7, #0ea5e9);
       color: #081220;
-      padding: 13px 18px;
+      padding: 11px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 30;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.45);
       cursor: pointer;
     }
 
-    .cart-summary {
-      font-weight: 800;
-      font-size: 14px;
-    }
-
+    .cart-summary { font-weight: 800; font-size: 13.5px; }
     .cart-action {
       background: #081220;
       color: #fff;
-      padding: 7px 16px;
-      border-radius: 10px;
-      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 9px;
+      font-size: 12.5px;
       font-weight: 800;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 58px;
+      background: #0b192c;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      z-index: 35;
+    }
+
+    .nav-tab {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .nav-tab.active {
+      color: #38bdf8;
+      background: rgba(14, 165, 233, 0.08);
+      border-top: 2px solid #38bdf8;
     }
 
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.78);
+      background: rgba(0,0,0,0.8);
       z-index: 50;
       display: flex;
       align-items: flex-end;
@@ -367,26 +485,14 @@
       border: none;
       border-radius: 13px;
       padding: 14px;
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 800;
       margin-top: 14px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
     }
 
-    .hidden {
-      display: none !important;
-    }
-
-    .loader {
-      text-align: center;
-      padding: 40px 10px;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
+    .hidden { display: none !important; }
+    .loader { text-align: center; padding: 40px 10px; color: var(--text-muted); font-size: 14px; }
   </style>
 </head>
 <body>
@@ -395,39 +501,91 @@
     <div class="header-top">
       <div>
         <div class="store-title">🏥 إيجل للمستلزمات الطبية</div>
-        <div class="store-sub">قائمة الأسعار المحدثة والطلب المباشر للعيادات والصيدليات</div>
+        <div class="store-sub">كتالوج الأسعار • الطلب المباشر • دليل الطوارئ والعيادات</div>
       </div>
-      <button class="install-btn hidden" id="install-btn" onclick="installApp()">📲 تثبيت</button>
+      <button onclick="shareApp()" style="background:rgba(255,255,255,0.08); border:1px solid var(--border-color); color:#cbd5e1; padding:5px 10px; border-radius:10px; font-size:11.5px; font-weight:700; cursor:pointer;">📤 مشاركة</button>
     </div>
 
-    <div class="search-box">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search-input" class="search-input" placeholder="ابحث باسم الصنف أو الكود..." oninput="renderProducts()">
+    <!-- قسم أدوات المتجر -->
+    <div id="store-controls">
+      <div class="price-mode-switch">
+        <button id="btn-retail" class="mode-btn active-retail" onclick="setPriceMode('retail')">🛍️ أسعار القطاعي</button>
+        <button id="btn-wholesale" class="mode-btn" onclick="requestWholesaleMode()">📦 أسعار الجملة 🔒</button>
+      </div>
+
+      <div class="rx-banner" onclick="sendPrescriptionWA()">
+        <span>📸 معاك روشتة أو بتدور على صنف مش موجود؟</span>
+        <strong>ابعتها واتساب ⬅️</strong>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="ابحث باسم الصنف أو الكود..." oninput="renderProducts()">
+      </div>
+
+      <div class="categories-bar" id="categories-bar"></div>
     </div>
 
-    <div class="categories-bar" id="categories-bar">
-      <button class="cat-pill active" onclick="selectCategory('ALL', this)">الكل</button>
+    <!-- قسم أدوات الدليل الطبي -->
+    <div id="directory-controls" class="hidden">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="dir-search-input" class="search-input" placeholder="ابحث عن مستشفى، صيدلية، دكتور، أو رقم طوارئ..." oninput="renderDirectory()">
+      </div>
+      <div class="categories-bar" id="dir-categories-bar"></div>
     </div>
   </header>
 
-  <div class="container">
+  <!-- محتوى المتجر -->
+  <div id="store-view" class="container">
     <div id="loader" class="loader">⏳ جاري تحميل أحدث الأسعار من المخزن...</div>
     <div id="products-list"></div>
+  </div>
+
+  <!-- محتوى الدليل الطبي والطوارئ -->
+  <div id="directory-view" class="container hidden">
+    <div id="dir-loader" class="loader">⏳ جاري تحميل أرقام الطوارئ والعيادات...</div>
+    <div id="directory-list"></div>
   </div>
 
   <!-- شريط السلة السفلي -->
   <div class="cart-bar hidden" id="cart-bar" onclick="openCartModal()">
     <div class="cart-summary">
-      🛒 <span id="cart-count">0</span> أصناف • الإجمالي: <span id="cart-total">0</span> ج.م
+      🛒 <span id="cart-count">0</span> أصناف (<span id="cart-mode-label">قطاعي</span>) • <span id="cart-total">0</span> ج.م
     </div>
-    <div class="cart-action">مراجعة وإرسال الطلب ⬅️</div>
+    <div class="cart-action">إرسال الطلب ⬅️</div>
+  </div>
+
+  <!-- شريط التنقل السفلي -->
+  <nav class="bottom-nav">
+    <button id="tab-store" class="nav-tab active" onclick="switchTab('store')">
+      <span>🛒</span>
+      <span>المتجر والأسعار</span>
+    </button>
+    <button id="tab-directory" class="nav-tab" onclick="switchTab('directory')">
+      <span>🚑</span>
+      <span>الطوارئ والعيادات</span>
+    </button>
+  </nav>
+
+  <!-- نافذة كلمة مرور الجملة -->
+  <div class="modal-overlay hidden" id="pass-modal" onclick="if(event.target===this) closePassModal()">
+    <div class="modal-sheet" style="text-align:center;">
+      <div class="modal-header">
+        <h3 style="font-size:16px; color:#fbbf24;">🔒 الدخول لأسعار الجملة</h3>
+        <button class="close-modal" onclick="closePassModal()">✕</button>
+      </div>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:10px;">أدخل الرقم السري الخاص بالعيادات والصيدليات وتجار الجملة:</p>
+      <input type="password" id="wholesale-pass-input" class="order-input" style="text-align:center; font-size:18px; letter-spacing:4px;" placeholder="••••">
+      <button class="send-wa-order-btn" style="background:linear-gradient(135deg, #d97706, #b45309);" onclick="verifyWholesalePass()">تفعيل أسعار الجملة</button>
+    </div>
   </div>
 
   <!-- نافذة إرسال الطلب عبر واتساب -->
   <div class="modal-overlay hidden" id="cart-modal" onclick="if(event.target===this) closeCartModal()">
     <div class="modal-sheet">
       <div class="modal-header">
-        <h3 style="font-size:17px; color:#38bdf8;">📋 تفاصيل الطلبية</h3>
+        <h3 style="font-size:17px; color:#38bdf8;">📋 تفاصيل الطلبية (<span id="modal-mode-badge">قطاعي</span>)</h3>
         <button class="close-modal" onclick="closeCartModal()">✕</button>
       </div>
 
@@ -448,47 +606,27 @@
   </div>
 
   <script>
-    // 1. رابط CSV الخاص بشيت إيجل للمستلزمات الطبية
-    const CATALOG_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRl8cq3UZkNeroxwkZKEFtW4vIqUNSn4UHkfBHLL7R5VI5x7I1tSBVhbMALybr717kb4-g3ceAwopyI/pub?output=csv";
+    // ================= إعدادات التطبيق =================
+    // الرابط الأساسي المنشور للشيت (يسحب كل الأوراق بالاسم تلقائياً)
+    const BASE_PUB_URL      = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRl8cq3UZkNeroxwkZKEFtW4vIqUNSn4UHkfBHLL7R5VI5x7I1tSBVhbMALybr717kb4-g3ceAwopyI/pub";
+    const CATALOG_CSV_URL   = BASE_PUB_URL + "?output=csv";
+    const DIRECTORY_CSV_URL = BASE_PUB_URL + "?output=csv&sheet=" + encodeURIComponent("الطوارئ");
 
-    // 2. رقم واتساب المبيعات الخاص بك
-    const SALES_WHATSAPP  = "201015055610";
+    // الرقم السري الموحد لفتح أسعار الجملة
+    const WHOLESALE_PASS    = "2030";
+
+    // رقم واتساب المبيعات الخاص بك
+    const SALES_WHATSAPP    = "201015055610";
+    // ===================================================
 
     const DEFAULT_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23081220'/%3E%3Cpath d='M35 30h30v25H35zM30 65h40v5H30z' fill='%23102036' stroke='%230ea5e9' stroke-width='2'/%3E%3Ccircle cx='45' cy='40' r='4' fill='%237dd3fc'/%3E%3C/svg%3E";
 
     let allProducts = [];
+    let allDirectory = [];
     let selectedCategory = "ALL";
+    let selectedDirCategory = "ALL";
+    let priceMode = localStorage.getItem('eagle_wholesale_unlocked') === 'true' ? 'wholesale' : 'retail';
     let cart = JSON.parse(localStorage.getItem('eagle_b2b_cart') || '{}');
-
-    (function setupPWA() {
-      const icon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b192c'/%3E%3Cpath d='M42 22h16v20h20v16H58v20H42V58H22V42h20V22z' fill='%230ea5e9'/%3E%3C/svg%3E";
-      const manifest = {
-        name: "إيجل للمستلزمات الطبية",
-        short_name: "إيجل الطبي",
-        start_url: window.location.href,
-        display: "standalone",
-        background_color: "#081220",
-        theme_color: "#0b192c",
-        icons: [{ src: icon, sizes: "192x192", type: "image/svg+xml" }]
-      };
-      const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
-      document.getElementById('pwa-manifest').href = URL.createObjectURL(blob);
-    })();
-
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      document.getElementById('install-btn').classList.remove('hidden');
-    });
-
-    async function installApp() {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      document.getElementById('install-btn').classList.add('hidden');
-    }
 
     function parseCSV(str) {
       const arr = [];
@@ -512,6 +650,61 @@
       return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
     }
 
+    function switchTab(tab) {
+      const isStore = tab === 'store';
+      document.getElementById('tab-store').classList.toggle('active', isStore);
+      document.getElementById('tab-directory').classList.toggle('active', !isStore);
+      document.getElementById('store-controls').classList.toggle('hidden', !isStore);
+      document.getElementById('directory-controls').classList.toggle('hidden', isStore);
+      document.getElementById('store-view').classList.toggle('hidden', !isStore);
+      document.getElementById('directory-view').classList.toggle('hidden', isStore);
+    }
+
+    function updatePriceModeUI() {
+      const isWhole = priceMode === 'wholesale';
+      document.getElementById('btn-retail').className = 'mode-btn ' + (!isWhole ? 'active-retail' : '');
+      document.getElementById('btn-wholesale').className = 'mode-btn ' + (isWhole ? 'active-wholesale' : '');
+      document.getElementById('btn-wholesale').innerHTML = isWhole ? '📦 أسعار الجملة 🔓' : '📦 أسعار الجملة 🔒';
+      renderProducts();
+      updateCartUI();
+    }
+
+    function setPriceMode(mode) {
+      priceMode = mode;
+      updatePriceModeUI();
+    }
+
+    function requestWholesaleMode() {
+      if (localStorage.getItem('eagle_wholesale_unlocked') === 'true') {
+        setPriceMode('wholesale');
+        return;
+      }
+      document.getElementById('pass-modal').classList.remove('hidden');
+      document.getElementById('wholesale-pass-input').focus();
+    }
+
+    function closePassModal() {
+      document.getElementById('pass-modal').classList.add('hidden');
+    }
+
+    function verifyWholesalePass() {
+      const val = normalizeDigits(document.getElementById('wholesale-pass-input').value.trim());
+      if (val === WHOLESALE_PASS) {
+        localStorage.setItem('eagle_wholesale_unlocked', 'true');
+        closePassModal();
+        setPriceMode('wholesale');
+      } else {
+        alert("كلمة المرور غير صحيحة. تواصل مع إدارة إيجل للحصول على كود الجملة.");
+      }
+    }
+
+    function getActivePrice(prod) {
+      if (priceMode === 'wholesale' && prod.wholesalePrice > 0) {
+        return prod.wholesalePrice;
+      }
+      return prod.retailPrice;
+    }
+
     async function loadCatalog() {
       try {
         const res = await fetch(CATALOG_CSV_URL + "&t=" + Date.now());
@@ -521,12 +714,14 @@
         for (let i = 1; i < rows.length; i++) {
           const itemName = (rows[i][2] || "").trim();
           if (itemName) {
-            const rawPrice = normalizeDigits(rows[i][3] || "0").replace(/[^\d.]/g, '');
+            const rPrice = parseFloat(normalizeDigits(rows[i][3] || "0").replace(/[^\d.]/g, '')) || 0;
+            const wPrice = parseFloat(normalizeDigits(rows[i][7] || "0").replace(/[^\d.]/g, '')) || 0;
             allProducts.push({
               code: (rows[i][0] || String(i)).trim(),
               cat: (rows[i][1] || "عام").trim(),
               name: itemName,
-              price: parseFloat(rawPrice) || 0,
+              retailPrice: rPrice,
+              wholesalePrice: wPrice,
               status: (rows[i][4] || "متوفر").trim(),
               note: (rows[i][5] || "").trim(),
               img: (rows[i][6] || "").trim()
@@ -534,13 +729,38 @@
           }
         }
       } catch (e) {
-        document.getElementById('loader').textContent = "⚠️ تعذر الاتصال بجدول البيانات. تأكد من الاتصال بالإنترنت.";
+        document.getElementById('loader').textContent = "⚠️ تعذر تحميل الأصناف. تأكد من الاتصال بالإنترنت.";
         return;
       }
 
       initCategories();
-      renderProducts();
-      updateCartUI();
+      updatePriceModeUI();
+    }
+
+    async function loadDirectory() {
+      try {
+        const res = await fetch(DIRECTORY_CSV_URL + "&t=" + Date.now());
+        const text = await res.text();
+        const rows = parseCSV(text);
+        allDirectory = [];
+        for (let i = 1; i < rows.length; i++) {
+          const name = (rows[i][1] || "").trim();
+          if (name) {
+            allDirectory.push({
+              cat: (rows[i][0] || "خدمات طبية").trim(),
+              name: name,
+              phone: normalizeDigits((rows[i][2] || "").trim()),
+              address: (rows[i][3] || "").trim(),
+              hours: (rows[i][4] || "").trim()
+            });
+          }
+        }
+      } catch (e) {
+        allDirectory = [];
+      }
+
+      initDirCategories();
+      renderDirectory();
     }
 
     function initCategories() {
@@ -554,7 +774,7 @@
 
     function selectCategory(cat, btn) {
       selectedCategory = cat;
-      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#categories-bar .cat-pill').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderProducts();
     }
@@ -579,6 +799,8 @@
         const isOut = p.status.includes("غير");
         const qty = cart[p.code] || 0;
         const imgSrc = p.img ? p.img : DEFAULT_IMG;
+        const activePrice = getActivePrice(p);
+        const isWhole = priceMode === 'wholesale' && p.wholesalePrice > 0;
         return `
           <div class="product-card ${isOut ? 'out-of-stock' : ''}">
             <div class="prod-body">
@@ -590,7 +812,9 @@
                 </div>
                 <div class="prod-name">${p.name}</div>
                 ${p.note ? `<div class="prod-note">${p.note}</div>` : ''}
-                <div class="prod-price">${p.price} ج.م</div>
+                <div class="prod-price ${isWhole ? 'wholesale' : ''}">
+                  ${activePrice} ج.م ${isWhole ? '<span style="font-size:10.5px; font-weight:700;">(جملة)</span>' : ''}
+                </div>
               </div>
             </div>
             ${!isOut ? `
@@ -603,6 +827,51 @@
           </div>
         `;
       }).join('');
+    }
+
+    function initDirCategories() {
+      const bar = document.getElementById('dir-categories-bar');
+      const cats = [...new Set(allDirectory.map(d => d.cat))];
+      bar.innerHTML = `<button class="cat-pill active" onclick="selectDirCategory('ALL', this)">الكل (${allDirectory.length})</button>`;
+      cats.forEach(c => {
+        bar.innerHTML += `<button class="cat-pill" onclick="selectDirCategory('${c}', this)">${c}</button>`;
+      });
+    }
+
+    function selectDirCategory(cat, btn) {
+      selectedDirCategory = cat;
+      document.querySelectorAll('#dir-categories-bar .cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDirectory();
+    }
+
+    function renderDirectory() {
+      document.getElementById('dir-loader').classList.add('hidden');
+      const list = document.getElementById('directory-list');
+      const q = document.getElementById('dir-search-input').value.trim().toLowerCase();
+
+      const filtered = allDirectory.filter(d => {
+        const matchCat = selectedDirCategory === 'ALL' || d.cat === selectedDirCategory;
+        const matchQ = d.name.toLowerCase().includes(q) || d.address.toLowerCase().includes(q) || d.cat.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="loader">لا توجد أرقام مضافة بعد في ورقة الطوارئ أو لا توجد نتائج مطابقة.</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(d => `
+        <div class="dir-card">
+          <div>
+            <span class="dir-badge">${d.cat}</span>
+            <div class="dir-name">${d.name}</div>
+            ${d.address ? `<div class="dir-sub">📍 ${d.address}</div>` : ''}
+            ${d.hours ? `<div class="dir-hours">🕒 ${d.hours}</div>` : ''}
+          </div>
+          ${d.phone ? `<a class="call-btn" href="tel:${d.phone}">📞 اتصال</a>` : ''}
+        </div>
+      `).join('');
     }
 
     function changeQty(code, delta) {
@@ -624,7 +893,7 @@
         const prod = allProducts.find(p => p.code === code);
         if (prod) {
           totalCount += cart[code];
-          totalPrice += prod.price * cart[code];
+          totalPrice += getActivePrice(prod) * cart[code];
         }
       });
 
@@ -632,6 +901,7 @@
       if (totalCount > 0) {
         bar.classList.remove('hidden');
         document.getElementById('cart-count').textContent = totalCount;
+        document.getElementById('cart-mode-label').textContent = priceMode === 'wholesale' ? 'جملة' : 'قطاعي';
         document.getElementById('cart-total').textContent = totalPrice.toLocaleString();
       } else {
         bar.classList.add('hidden');
@@ -646,13 +916,14 @@
       Object.keys(cart).forEach(code => {
         const prod = allProducts.find(p => p.code === code);
         if (prod) {
-          const sub = prod.price * cart[code];
+          const price = getActivePrice(prod);
+          const sub = price * cart[code];
           total += sub;
           html += `
             <div class="cart-item-row">
               <div>
                 <strong>${prod.name}</strong><br>
-                <span style="color:#94a3b8; font-size:11.5px;">الكمية: ${cart[code]} × ${prod.price} ج.م</span>
+                <span style="color:#94a3b8; font-size:11.5px;">الكمية: ${cart[code]} × ${price} ج.م</span>
               </div>
               <div style="font-weight:800; color:#38bdf8;">${sub} ج.م</div>
             </div>
@@ -661,6 +932,7 @@
       });
 
       container.innerHTML = html;
+      document.getElementById('modal-mode-badge').textContent = priceMode === 'wholesale' ? 'تسعير جملة' : 'تسعير قطاعي';
       document.getElementById('modal-total').textContent = total.toLocaleString();
       document.getElementById('client-name').value = localStorage.getItem('eagle_client_name') || '';
       document.getElementById('client-address').value = localStorage.getItem('eagle_client_addr') || '';
@@ -684,8 +956,10 @@
       localStorage.setItem('eagle_client_name', clientName);
       localStorage.setItem('eagle_client_addr', clientAddr);
 
+      const modeText = priceMode === 'wholesale' ? '📦 طلبية جملة' : '🛍️ طلبية قطاعي';
       let lines = [
         `*طلبية جديدة - إيجل للمستلزمات الطبية* 🏥`,
+        `🏷️ *نوع التسعير:* ${modeText}`,
         `👤 *العميل:* ${clientName}`,
         clientAddr ? `📍 *العنوان:* ${clientAddr}` : '',
         `--------------------------`
@@ -696,9 +970,10 @@
       Object.keys(cart).forEach(code => {
         const prod = allProducts.find(p => p.code === code);
         if (prod) {
-          const sub = prod.price * cart[code];
+          const price = getActivePrice(prod);
+          const sub = price * cart[code];
           total += sub;
-          lines.push(`${idx}. ${prod.name}\n   الكمية: *${cart[code]}* × ${prod.price} = *${sub} ج.م*`);
+          lines.push(`${idx}. ${prod.name}\n   الكمية: *${cart[code]}* × ${price} = *${sub} ج.م*`);
           idx++;
         }
       });
@@ -711,7 +986,26 @@
       window.open(waUrl, '_blank');
     }
 
+    function sendPrescriptionWA() {
+      const msg = "السلام عليكم إيجل للمستلزمات الطبية، أود الاستفسار عن توافر صنف / إرسال صورة روشتة:";
+      window.open(`https://wa.me/${SALES_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function shareApp() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'إيجل للمستلزمات الطبية والدليل الطبي',
+          text: 'كتالوج أسعار المستلزمات الطبية ودليل أرقام الطوارئ والصيدليات والعيادات:',
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert("تم نسخ رابط التطبيق لمشاركته مع أصدقائك!");
+      }
+    }
+
     loadCatalog();
+    loadDirectory();
   </script>
 </body>
 </html>

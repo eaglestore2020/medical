@@ -172,6 +172,7 @@
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: #081220;
+      flex-shrink: 0;
     }
 
     .prod-info {
@@ -183,6 +184,7 @@
       align-items: center;
       gap: 6px;
       margin-bottom: 4px;
+      flex-wrap: wrap;
     }
 
     .prod-cat {
@@ -238,6 +240,7 @@
       padding: 5px 8px;
       border-radius: 12px;
       border: 1px solid var(--border-color);
+      flex-shrink: 0;
     }
 
     .qty-btn {
@@ -445,21 +448,13 @@
   </div>
 
   <script>
-    // 1. ضع رابط CSV الخاص بشيت المستلزمات الطبية هنا
-    const CATALOG_CSV_URL = "PUT_YOUR_GOOGLE_SHEET_CSV_URL_HERE";
+    // 1. رابط CSV الخاص بشيت إيجل للمستلزمات الطبية
+    const CATALOG_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRl8cq3UZkNeroxwkZKEFtW4vIqUNSn4UHkfBHLL7R5VI5x7I1tSBVhbMALybr717kb4-g3ceAwopyI/pub?output=csv";
 
-    // 2. رقم واتساب المبيعات الخاص بك (مضبوط ومفعل)
+    // 2. رقم واتساب المبيعات الخاص بك
     const SALES_WHATSAPP  = "201015055610";
 
     const DEFAULT_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23081220'/%3E%3Cpath d='M35 30h30v25H35zM30 65h40v5H30z' fill='%23102036' stroke='%230ea5e9' stroke-width='2'/%3E%3Ccircle cx='45' cy='40' r='4' fill='%237dd3fc'/%3E%3C/svg%3E";
-
-    const SAMPLE_DATA = [
-      { code: "101", cat: "مستهلكات طبية", name: "سرنجة 5 سم أدفانس (علبة 100)", price: 245, status: "متوفر", note: "سعر خاص للكميات", img: "https://images.unsplash.com/photo-1576086213369-97a306d36557?w=150&auto=format&fit=crop&q=60" },
-      { code: "102", cat: "مستهلكات طبية", name: "جوانتي لاتكس طبي بودرة (علبة 100)", price: 185, status: "متوفر", note: "مقاسات S / M / L", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=150&auto=format&fit=crop&q=60" },
-      { code: "103", cat: "أجهزة قياس", name: "جهاز قياس ضغط ديجيتال ألماني", price: 1150, status: "متوفر", note: "ضمان 3 سنوات + شاحن", img: "https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=150&auto=format&fit=crop&q=60" },
-      { code: "104", cat: "أجهزة قياس", name: "جهاز قياس سكر + 50 شريط", price: 620, status: "متوفر", note: "شرائط متوفرة باستمرار", img: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=150&auto=format&fit=crop&q=60" },
-      { code: "105", cat: "رعاية منزلية", name: "جهاز استنشاق بخار (نيبولايزر)", price: 780, status: "غير متوفر", note: "يتوفر قريباً", img: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=150&auto=format&fit=crop&q=60" }
-    ];
 
     let allProducts = [];
     let selectedCategory = "ALL";
@@ -513,27 +508,25 @@
       return arr;
     }
 
-    async function loadCatalog() {
-      if (CATALOG_CSV_URL === "PUT_YOUR_GOOGLE_SHEET_CSV_URL_HERE") {
-        allProducts = SAMPLE_DATA;
-        initCategories();
-        renderProducts();
-        updateCartUI();
-        return;
-      }
+    function normalizeDigits(s) {
+      return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+    }
 
+    async function loadCatalog() {
       try {
         const res = await fetch(CATALOG_CSV_URL + "&t=" + Date.now());
         const text = await res.text();
         const rows = parseCSV(text);
         allProducts = [];
         for (let i = 1; i < rows.length; i++) {
-          if (rows[i][2]) {
+          const itemName = (rows[i][2] || "").trim();
+          if (itemName) {
+            const rawPrice = normalizeDigits(rows[i][3] || "0").replace(/[^\d.]/g, '');
             allProducts.push({
               code: (rows[i][0] || String(i)).trim(),
               cat: (rows[i][1] || "عام").trim(),
-              name: rows[i][2].trim(),
-              price: parseFloat((rows[i][3] || "0").replace(/[^\d.]/g, '')) || 0,
+              name: itemName,
+              price: parseFloat(rawPrice) || 0,
               status: (rows[i][4] || "متوفر").trim(),
               note: (rows[i][5] || "").trim(),
               img: (rows[i][6] || "").trim()
@@ -541,7 +534,8 @@
           }
         }
       } catch (e) {
-        allProducts = SAMPLE_DATA;
+        document.getElementById('loader').textContent = "⚠️ تعذر الاتصال بجدول البيانات. تأكد من الاتصال بالإنترنت.";
+        return;
       }
 
       initCategories();

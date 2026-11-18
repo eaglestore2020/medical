@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b192c">
-  <title>إيجل للمستلزمات الطبية | الكتالوج والدليل الطبي</title>
+  <title>إيجل للمستلزمات الطبية | الكتالوج والأسعار</title>
   <link id="pwa-manifest" rel="manifest" href="">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,6 @@
       --text-muted: #94a3b8;
       --success: #22c55e;
       --danger: #ef4444;
-      --gold: #f59e0b;
     }
 
     * {
@@ -33,93 +32,54 @@
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      padding-bottom: 110px;
+      padding-bottom: 95px;
     }
 
     header {
       background: linear-gradient(135deg, #0b192c 0%, #112a46 100%);
       border-bottom: 1px solid var(--border-color);
-      padding: 14px 16px 12px;
+      padding: 16px 16px 14px;
       position: sticky;
       top: 0;
       z-index: 20;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
     .header-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
-      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .store-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 900;
       color: #38bdf8;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .store-sub {
-      font-size: 11px;
+      font-size: 11.5px;
       color: var(--text-muted);
     }
 
-    .price-mode-switch {
-      display: flex;
-      background: #081220;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 3px;
-      margin-bottom: 10px;
-    }
-
-    .mode-btn {
-      flex: 1;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      padding: 6px 10px;
-      border-radius: 9px;
-      font-size: 12.5px;
-      font-weight: 800;
+    .install-btn {
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid var(--primary);
+      color: #7dd3fc;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
       cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .mode-btn.active-retail {
-      background: var(--primary);
-      color: #081220;
-    }
-
-    .mode-btn.active-wholesale {
-      background: var(--gold);
-      color: #081220;
-    }
-
-    .rx-banner {
-      background: linear-gradient(90deg, rgba(34, 197, 94, 0.16), rgba(14, 165, 233, 0.16));
-      border: 1px dashed rgba(74, 222, 128, 0.5);
-      border-radius: 11px;
-      padding: 8px 12px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .rx-banner strong {
-      color: #4ade80;
     }
 
     .search-box {
       position: relative;
-      margin-bottom: 9px;
+      margin-bottom: 10px;
     }
 
     .search-input {
@@ -127,11 +87,631 @@
       background: #081220;
       border: 1.5px solid var(--border-color);
       border-radius: 12px;
-      padding: 9px 36px 9px 14px;
+      padding: 10px 38px 10px 14px;
       color: #fff;
-      font-size: 13px;
+      font-size: 13.5px;
       outline: none;
     }
 
     .search-input:focus {
-      border-
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px;
+    }
+
+    .categories-bar {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .categories-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #cbd5e1;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #081220;
+      border-color: var(--primary);
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .product-card.out-of-stock {
+      opacity: 0.55;
+    }
+
+    .prod-body {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .prod-img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #081220;
+      flex-shrink: 0;
+    }
+
+    .prod-info {
+      flex: 1;
+    }
+
+    .prod-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .prod-cat {
+      font-size: 10.5px;
+      background: rgba(14, 165, 233, 0.15);
+      color: #7dd3fc;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .prod-status {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .status-in {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+    }
+
+    .status-out {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+    }
+
+    .prod-name {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .prod-note {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .prod-price {
+      font-size: 15px;
+      font-weight: 900;
+      color: #38bdf8;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #081220;
+      padding: 5px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: none;
+      background: var(--primary);
+      color: #081220;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-btn.minus {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+
+    .qty-val {
+      font-size: 14px;
+      font-weight: 800;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .cart-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, #0284c7, #0ea5e9);
+      color: #081220;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 30;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+      cursor: pointer;
+    }
+
+    .cart-summary {
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .cart-action {
+      background: #081220;
+      color: #fff;
+      padding: 7px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      z-index: 50;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-sheet {
+      background: #102036;
+      border-top: 2px solid var(--primary);
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      max-width: 550px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 20px 18px 24px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .close-modal {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .cart-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+    }
+
+    .order-input {
+      width: 100%;
+      background: #081220;
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      padding: 11px 14px;
+      color: #fff;
+      font-size: 13.5px;
+      margin-top: 10px;
+      outline: none;
+    }
+
+    .send-wa-order-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      padding: 14px;
+      font-size: 15.5px;
+      font-weight: 800;
+      margin-top: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .loader {
+      text-align: center;
+      padding: 40px 10px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div>
+        <div class="store-title">🏥 إيجل للمستلزمات الطبية</div>
+        <div class="store-sub">قائمة الأسعار المحدثة والطلب المباشر للعيادات والصيدليات</div>
+      </div>
+      <button class="install-btn hidden" id="install-btn" onclick="installApp()">📲 تثبيت</button>
+    </div>
+
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" class="search-input" placeholder="ابحث باسم الصنف أو الكود..." oninput="renderProducts()">
+    </div>
+
+    <div class="categories-bar" id="categories-bar">
+      <button class="cat-pill active" onclick="selectCategory('ALL', this)">الكل</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="loader" class="loader">⏳ جاري تحميل أحدث الأسعار من المخزن...</div>
+    <div id="products-list"></div>
+  </div>
+
+  <!-- شريط السلة السفلي -->
+  <div class="cart-bar hidden" id="cart-bar" onclick="openCartModal()">
+    <div class="cart-summary">
+      🛒 <span id="cart-count">0</span> أصناف • الإجمالي: <span id="cart-total">0</span> ج.م
+    </div>
+    <div class="cart-action">مراجعة وإرسال الطلب ⬅️</div>
+  </div>
+
+  <!-- نافذة إرسال الطلب عبر واتساب -->
+  <div class="modal-overlay hidden" id="cart-modal" onclick="if(event.target===this) closeCartModal()">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 style="font-size:17px; color:#38bdf8;">📋 تفاصيل الطلبية</h3>
+        <button class="close-modal" onclick="closeCartModal()">✕</button>
+      </div>
+
+      <div id="cart-items-container"></div>
+
+      <div style="margin-top:12px; font-size:15px; font-weight:800; color:#4ade80; text-align:left;">
+        الإجمالي التقديري: <span id="modal-total">0</span> ج.م
+      </div>
+
+      <input type="text" id="client-name" class="order-input" placeholder="اسم العيادة / الصيدلية / المشتري *" required>
+      <input type="text" id="client-address" class="order-input" placeholder="عنوان التوصيل (مثلاً: الفشن - شارع ...)">
+      <input type="text" id="client-notes" class="order-input" placeholder="ملاحظات إضافية على الطلبية (اختياري)">
+
+      <button class="send-wa-order-btn" onclick="sendOrderToWhatsApp()">
+        <span>💬 إرسال الطلبية مباشرة عبر واتساب</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // 1. رابط CSV الخاص بشيت إيجل للمستلزمات الطبية
+    const CATALOG_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRl8cq3UZkNeroxwkZKEFtW4vIqUNSn4UHkfBHLL7R5VI5x7I1tSBVhbMALybr717kb4-g3ceAwopyI/pub?output=csv";
+
+    // 2. رقم واتساب المبيعات الخاص بك
+    const SALES_WHATSAPP  = "201015055610";
+
+    const DEFAULT_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23081220'/%3E%3Cpath d='M35 30h30v25H35zM30 65h40v5H30z' fill='%23102036' stroke='%230ea5e9' stroke-width='2'/%3E%3Ccircle cx='45' cy='40' r='4' fill='%237dd3fc'/%3E%3C/svg%3E";
+
+    let allProducts = [];
+    let selectedCategory = "ALL";
+    let cart = JSON.parse(localStorage.getItem('eagle_b2b_cart') || '{}');
+
+    (function setupPWA() {
+      const icon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b192c'/%3E%3Cpath d='M42 22h16v20h20v16H58v20H42V58H22V42h20V22z' fill='%230ea5e9'/%3E%3C/svg%3E";
+      const manifest = {
+        name: "إيجل للمستلزمات الطبية",
+        short_name: "إيجل الطبي",
+        start_url: window.location.href,
+        display: "standalone",
+        background_color: "#081220",
+        theme_color: "#0b192c",
+        icons: [{ src: icon, sizes: "192x192", type: "image/svg+xml" }]
+      };
+      const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+      document.getElementById('pwa-manifest').href = URL.createObjectURL(blob);
+    })();
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('install-btn').classList.remove('hidden');
+    });
+
+    async function installApp() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      document.getElementById('install-btn').classList.add('hidden');
+    }
+
+    function parseCSV(str) {
+      const arr = [];
+      let quote = false;
+      for (let row = 0, col = 0, c = 0; c < str.length; c++) {
+        let cc = str[c], nc = str[c + 1];
+        arr[row] = arr[row] || [];
+        arr[row][col] = arr[row][col] || '';
+        if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+        if (cc == '"') { quote = !quote; continue; }
+        if (cc == ',' && !quote) { ++col; continue; }
+        if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+        if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+        if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+        arr[row][col] += cc;
+      }
+      return arr;
+    }
+
+    function normalizeDigits(s) {
+      return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+    }
+
+    async function loadCatalog() {
+      try {
+        const res = await fetch(CATALOG_CSV_URL + "&t=" + Date.now());
+        const text = await res.text();
+        const rows = parseCSV(text);
+        allProducts = [];
+        for (let i = 1; i < rows.length; i++) {
+          const itemName = (rows[i][2] || "").trim();
+          if (itemName) {
+            const rawPrice = normalizeDigits(rows[i][3] || "0").replace(/[^\d.]/g, '');
+            allProducts.push({
+              code: (rows[i][0] || String(i)).trim(),
+              cat: (rows[i][1] || "عام").trim(),
+              name: itemName,
+              price: parseFloat(rawPrice) || 0,
+              status: (rows[i][4] || "متوفر").trim(),
+              note: (rows[i][5] || "").trim(),
+              img: (rows[i][6] || "").trim()
+            });
+          }
+        }
+      } catch (e) {
+        document.getElementById('loader').textContent = "⚠️ تعذر الاتصال بجدول البيانات. تأكد من الاتصال بالإنترنت.";
+        return;
+      }
+
+      initCategories();
+      renderProducts();
+      updateCartUI();
+    }
+
+    function initCategories() {
+      const bar = document.getElementById('categories-bar');
+      const cats = [...new Set(allProducts.map(p => p.cat))];
+      bar.innerHTML = `<button class="cat-pill active" onclick="selectCategory('ALL', this)">الكل (${allProducts.length})</button>`;
+      cats.forEach(c => {
+        bar.innerHTML += `<button class="cat-pill" onclick="selectCategory('${c}', this)">${c}</button>`;
+      });
+    }
+
+    function selectCategory(cat, btn) {
+      selectedCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts();
+    }
+
+    function renderProducts() {
+      document.getElementById('loader').classList.add('hidden');
+      const list = document.getElementById('products-list');
+      const q = document.getElementById('search-input').value.trim().toLowerCase();
+
+      const filtered = allProducts.filter(p => {
+        const matchCat = selectedCategory === 'ALL' || p.cat === selectedCategory;
+        const matchQ = p.name.toLowerCase().includes(q) || p.code.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="loader">لا توجد أصناف مطابقة لبحثك.</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(p => {
+        const isOut = p.status.includes("غير");
+        const qty = cart[p.code] || 0;
+        const imgSrc = p.img ? p.img : DEFAULT_IMG;
+        return `
+          <div class="product-card ${isOut ? 'out-of-stock' : ''}">
+            <div class="prod-body">
+              <img class="prod-img" src="${imgSrc}" alt="${p.name}" onerror="this.src='${DEFAULT_IMG}'">
+              <div class="prod-info">
+                <div class="prod-meta">
+                  <span class="prod-cat">${p.cat}</span>
+                  <span class="prod-status ${isOut ? 'status-out' : 'status-in'}">${p.status}</span>
+                </div>
+                <div class="prod-name">${p.name}</div>
+                ${p.note ? `<div class="prod-note">${p.note}</div>` : ''}
+                <div class="prod-price">${p.price} ج.م</div>
+              </div>
+            </div>
+            ${!isOut ? `
+              <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty('${p.code}', 1)">+</button>
+                <span class="qty-val">${qty}</span>
+                <button class="qty-btn minus" onclick="changeQty('${p.code}', -1)">-</button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function changeQty(code, delta) {
+      const current = cart[code] || 0;
+      const next = Math.max(0, current + delta);
+      if (next === 0) delete cart[code];
+      else cart[code] = next;
+
+      localStorage.setItem('eagle_b2b_cart', JSON.stringify(cart));
+      renderProducts();
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      let totalCount = 0;
+      let totalPrice = 0;
+
+      Object.keys(cart).forEach(code => {
+        const prod = allProducts.find(p => p.code === code);
+        if (prod) {
+          totalCount += cart[code];
+          totalPrice += prod.price * cart[code];
+        }
+      });
+
+      const bar = document.getElementById('cart-bar');
+      if (totalCount > 0) {
+        bar.classList.remove('hidden');
+        document.getElementById('cart-count').textContent = totalCount;
+        document.getElementById('cart-total').textContent = totalPrice.toLocaleString();
+      } else {
+        bar.classList.add('hidden');
+      }
+    }
+
+    function openCartModal() {
+      const container = document.getElementById('cart-items-container');
+      let html = "";
+      let total = 0;
+
+      Object.keys(cart).forEach(code => {
+        const prod = allProducts.find(p => p.code === code);
+        if (prod) {
+          const sub = prod.price * cart[code];
+          total += sub;
+          html += `
+            <div class="cart-item-row">
+              <div>
+                <strong>${prod.name}</strong><br>
+                <span style="color:#94a3b8; font-size:11.5px;">الكمية: ${cart[code]} × ${prod.price} ج.م</span>
+              </div>
+              <div style="font-weight:800; color:#38bdf8;">${sub} ج.م</div>
+            </div>
+          `;
+        }
+      });
+
+      container.innerHTML = html;
+      document.getElementById('modal-total').textContent = total.toLocaleString();
+      document.getElementById('client-name').value = localStorage.getItem('eagle_client_name') || '';
+      document.getElementById('client-address').value = localStorage.getItem('eagle_client_addr') || '';
+      document.getElementById('cart-modal').classList.remove('hidden');
+    }
+
+    function closeCartModal() {
+      document.getElementById('cart-modal').classList.add('hidden');
+    }
+
+    function sendOrderToWhatsApp() {
+      const clientName = document.getElementById('client-name').value.trim();
+      const clientAddr = document.getElementById('client-address').value.trim();
+      const clientNotes = document.getElementById('client-notes').value.trim();
+
+      if (!clientName) {
+        alert("يرجى كتابة اسم العيادة أو الصيدلية أو المشتري أولاً.");
+        return;
+      }
+
+      localStorage.setItem('eagle_client_name', clientName);
+      localStorage.setItem('eagle_client_addr', clientAddr);
+
+      let lines = [
+        `*طلبية جديدة - إيجل للمستلزمات الطبية* 🏥`,
+        `👤 *العميل:* ${clientName}`,
+        clientAddr ? `📍 *العنوان:* ${clientAddr}` : '',
+        `--------------------------`
+      ].filter(Boolean);
+
+      let total = 0;
+      let idx = 1;
+      Object.keys(cart).forEach(code => {
+        const prod = allProducts.find(p => p.code === code);
+        if (prod) {
+          const sub = prod.price * cart[code];
+          total += sub;
+          lines.push(`${idx}. ${prod.name}\n   الكمية: *${cart[code]}* × ${prod.price} = *${sub} ج.م*`);
+          idx++;
+        }
+      });
+
+      lines.push(`--------------------------`);
+      lines.push(`💰 *الإجمالي التقديري:* ${total.toLocaleString()} ج.م`);
+      if (clientNotes) lines.push(`📝 *ملاحظات:* ${clientNotes}`);
+
+      const waUrl = `https://wa.me/${SALES_WHATSAPP}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(waUrl, '_blank');
+    }
+
+    loadCatalog();
+  </script>
+</body>
+</html>

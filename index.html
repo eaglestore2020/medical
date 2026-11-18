@@ -523,4 +523,525 @@
     <div class="header-top">
       <div>
         <div class="store-title">🏥 إيجل للمستلزمات الطبية</div>
-        <div class
+        <div class="store-sub">كتالوج الأسعار • الطلب المباشر • دليل الطوارئ والعيادات</div>
+      </div>
+      <button onclick="shareApp()" style="background:rgba(255,255,255,0.08); border:1px solid var(--border-color); color:#cbd5e1; padding:5px 10px; border-radius:10px; font-size:11.5px; font-weight:700; cursor:pointer;">📤 مشاركة</button>
+    </div>
+
+    <!-- قسم أدوات المتجر -->
+    <div id="store-controls">
+      <div class="price-mode-switch">
+        <button id="btn-retail" class="mode-btn active-retail" onclick="setPriceMode('retail')">🛍️ أسعار القطاعي</button>
+        <button id="btn-wholesale" class="mode-btn" onclick="requestWholesaleMode()">📦 أسعار الجملة 🔒</button>
+      </div>
+
+      <div class="rx-banner" onclick="sendPrescriptionWA()">
+        <span>📸 معاك روشتة أو بتدور على صنف مش موجود؟</span>
+        <strong>ابعتها واتساب ⬅️</strong>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="ابحث باسم الصنف أو الكود..." oninput="renderProducts()">
+      </div>
+
+      <div class="categories-bar" id="categories-bar"></div>
+    </div>
+
+    <!-- قسم أدوات الدليل الطبي -->
+    <div id="directory-controls" class="hidden">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="dir-search-input" class="search-input" placeholder="ابحث عن مستشفى، صيدلية، دكتور، أو رقم طوارئ..." oninput="renderDirectory()">
+      </div>
+      <div class="categories-bar" id="dir-categories-bar"></div>
+    </div>
+  </header>
+
+  <!-- محتوى المتجر -->
+  <div id="store-view" class="container">
+    <div id="loader" class="loader">⏳ جاري تحميل أحدث الأسعار من المخزن...</div>
+    <div id="products-list"></div>
+  </div>
+
+  <!-- محتوى الدليل الطبي والطوارئ -->
+  <div id="directory-view" class="container hidden">
+    <div id="dir-loader" class="loader">⏳ جاري تحميل أرقام الطوارئ والعيادات...</div>
+    <div id="directory-list"></div>
+  </div>
+
+  <!-- شريط السلة السفلي -->
+  <div class="cart-bar hidden" id="cart-bar" onclick="openCartModal()">
+    <div class="cart-summary">
+      🛒 <span id="cart-count">0</span> أصناف (<span id="cart-mode-label">قطاعي</span>) • <span id="cart-total">0</span> ج.م
+    </div>
+    <div class="cart-action">إرسال الطلب ⬅️</div>
+  </div>
+
+  <!-- شريط التنقل السفلي -->
+  <nav class="bottom-nav">
+    <button id="tab-store" class="nav-tab active" onclick="switchTab('store')">
+      <span>🛒</span>
+      <span>المتجر والأسعار</span>
+    </button>
+    <button id="tab-directory" class="nav-tab" onclick="switchTab('directory')">
+      <span>🚑</span>
+      <span>الطوارئ والعيادات</span>
+    </button>
+  </nav>
+
+  <!-- نافذة كلمة مرور الجملة -->
+  <div class="modal-overlay hidden" id="pass-modal" onclick="if(event.target===this) closePassModal()">
+    <div class="modal-sheet" style="text-align:center;">
+      <div class="modal-header">
+        <h3 style="font-size:16px; color:#fbbf24;">🔒 الدخول لأسعار الجملة</h3>
+        <button class="close-modal" onclick="closePassModal()">✕</button>
+      </div>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:10px;">أدخل الرقم السري الخاص بالعيادات والصيدليات وتجار الجملة:</p>
+      <input type="password" id="wholesale-pass-input" class="order-input" style="text-align:center; font-size:18px; letter-spacing:4px;" placeholder="••••">
+      <button class="send-wa-order-btn" style="background:linear-gradient(135deg, #d97706, #b45309);" onclick="verifyWholesalePass()">تفعيل أسعار الجملة</button>
+    </div>
+  </div>
+
+  <!-- نافذة إرسال الطلب عبر واتساب -->
+  <div class="modal-overlay hidden" id="cart-modal" onclick="if(event.target===this) closeCartModal()">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 style="font-size:17px; color:#38bdf8;">📋 تفاصيل الطلبية (<span id="modal-mode-badge">قطاعي</span>)</h3>
+        <button class="close-modal" onclick="closeCartModal()">✕</button>
+      </div>
+
+      <div id="cart-items-container"></div>
+
+      <div style="margin-top:12px; font-size:15px; font-weight:800; color:#4ade80; text-align:left;">
+        الإجمالي التقديري: <span id="modal-total">0</span> ج.م
+      </div>
+
+      <input type="text" id="client-name" class="order-input" placeholder="اسم العيادة / الصيدلية / المشتري *" required>
+      <input type="text" id="client-address" class="order-input" placeholder="عنوان التوصيل (مثلاً: الفشن - شارع ...)">
+      <input type="text" id="client-notes" class="order-input" placeholder="ملاحظات إضافية على الطلبية (اختياري)">
+
+      <button class="send-wa-order-btn" onclick="sendOrderToWhatsApp()">
+        <span>💬 إرسال الطلبية مباشرة عبر واتساب</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ================= إعدادات التطبيق =================
+    const SHEET_ID          = "17PjCSa5wKY1zsoKEfCtnJiZLcF2Ofh9zW8tl2AlroFs";
+    const CATALOG_CSV_URL   = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent("المنتجات")}`;
+    const DIRECTORY_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent("الطوارئ")}`;
+
+    // الرقم السري الموحد لفتح أسعار الجملة
+    const WHOLESALE_PASS    = "2030";
+
+    // رقم واتساب المبيعات الخاص بك
+    const SALES_WHATSAPP    = "201015055610";
+    // ===================================================
+
+    const DEFAULT_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23081220'/%3E%3Cpath d='M35 30h30v25H35zM30 65h40v5H30z' fill='%23102036' stroke='%230ea5e9' stroke-width='2'/%3E%3Ccircle cx='45' cy='40' r='4' fill='%237dd3fc'/%3E%3C/svg%3E";
+
+    let allProducts = [];
+    let allDirectory = [];
+    let selectedCategory = "ALL";
+    let selectedDirCategory = "ALL";
+    let priceMode = localStorage.getItem('eagle_wholesale_unlocked') === 'true' ? 'wholesale' : 'retail';
+    let cart = JSON.parse(localStorage.getItem('eagle_b2b_cart') || '{}');
+
+    function parseCSV(str) {
+      const arr = [];
+      let quote = false;
+      for (let row = 0, col = 0, c = 0; c < str.length; c++) {
+        let cc = str[c], nc = str[c + 1];
+        arr[row] = arr[row] || [];
+        arr[row][col] = arr[row][col] || '';
+        if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+        if (cc == '"') { quote = !quote; continue; }
+        if (cc == ',' && !quote) { ++col; continue; }
+        if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+        if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+        if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+        arr[row][col] += cc;
+      }
+      return arr;
+    }
+
+    function normalizeDigits(s) {
+      return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+    }
+
+    function formatPhone(raw) {
+      let clean = normalizeDigits(raw).replace(/[^\d+]/g, '');
+      if (clean.length === 10 && clean.startsWith('1')) {
+        clean = '0' + clean;
+      }
+      return clean;
+    }
+
+    function switchTab(tab) {
+      const isStore = tab === 'store';
+      document.getElementById('tab-store').classList.toggle('active', isStore);
+      document.getElementById('tab-directory').classList.toggle('active', !isStore);
+      document.getElementById('store-controls').classList.toggle('hidden', !isStore);
+      document.getElementById('directory-controls').classList.toggle('hidden', isStore);
+      document.getElementById('store-view').classList.toggle('hidden', !isStore);
+      document.getElementById('directory-view').classList.toggle('hidden', isStore);
+    }
+
+    function updatePriceModeUI() {
+      const isWhole = priceMode === 'wholesale';
+      document.getElementById('btn-retail').className = 'mode-btn ' + (!isWhole ? 'active-retail' : '');
+      document.getElementById('btn-wholesale').className = 'mode-btn ' + (isWhole ? 'active-wholesale' : '');
+      document.getElementById('btn-wholesale').innerHTML = isWhole ? '📦 أسعار الجملة 🔓' : '📦 أسعار الجملة 🔒';
+      renderProducts();
+      updateCartUI();
+    }
+
+    function setPriceMode(mode) {
+      priceMode = mode;
+      updatePriceModeUI();
+    }
+
+    function requestWholesaleMode() {
+      if (localStorage.getItem('eagle_wholesale_unlocked') === 'true') {
+        setPriceMode('wholesale');
+        return;
+      }
+      document.getElementById('pass-modal').classList.remove('hidden');
+      document.getElementById('wholesale-pass-input').focus();
+    }
+
+    function closePassModal() {
+      document.getElementById('pass-modal').classList.add('hidden');
+    }
+
+    function verifyWholesalePass() {
+      const val = normalizeDigits(document.getElementById('wholesale-pass-input').value.trim());
+      if (val === WHOLESALE_PASS) {
+        localStorage.setItem('eagle_wholesale_unlocked', 'true');
+        closePassModal();
+        setPriceMode('wholesale');
+      } else {
+        alert("كلمة المرور غير صحيحة. تواصل مع إدارة إيجل للحصول على كود الجملة.");
+      }
+    }
+
+    function getActivePrice(prod) {
+      if (priceMode === 'wholesale' && prod.wholesalePrice > 0) {
+        return prod.wholesalePrice;
+      }
+      return prod.retailPrice;
+    }
+
+    async function loadCatalog() {
+      try {
+        const res = await fetch(CATALOG_CSV_URL + "&t=" + Date.now());
+        const text = await res.text();
+        const rows = parseCSV(text);
+        allProducts = [];
+        for (let i = 1; i < rows.length; i++) {
+          const itemName = (rows[i][2] || "").trim();
+          if (itemName && itemName !== "الاسم" && itemName !== "اسم الصنف") {
+            const rPrice = parseFloat(normalizeDigits(rows[i][3] || "0").replace(/[^\d.]/g, '')) || 0;
+            const wPrice = parseFloat(normalizeDigits(rows[i][7] || "0").replace(/[^\d.]/g, '')) || 0;
+            allProducts.push({
+              code: (rows[i][0] || String(i)).trim(),
+              cat: (rows[i][1] || "عام").trim(),
+              name: itemName,
+              retailPrice: rPrice,
+              wholesalePrice: wPrice,
+              status: (rows[i][4] || "متوفر").trim(),
+              note: (rows[i][5] || "").trim(),
+              img: (rows[i][6] || "").trim()
+            });
+          }
+        }
+      } catch (e) {
+        document.getElementById('loader').textContent = "⚠️ تعذر تحميل الأصناف. تأكد من تفعيل المشاركة العامة للشيت.";
+        return;
+      }
+
+      initCategories();
+      updatePriceModeUI();
+    }
+
+    async function loadDirectory() {
+      try {
+        const res = await fetch(DIRECTORY_CSV_URL + "&t=" + Date.now());
+        const text = await res.text();
+        const rows = parseCSV(text);
+        allDirectory = [];
+        for (let i = 1; i < rows.length; i++) {
+          const name = (rows[i][1] || "").trim();
+          if (name && name !== "الاسم") {
+            allDirectory.push({
+              cat: (rows[i][0] || "خدمات طبية").trim(),
+              name: name,
+              phone: formatPhone(rows[i][2] || ""),
+              address: (rows[i][3] || "").trim(),
+              hours: (rows[i][4] || "").trim()
+            });
+          }
+        }
+      } catch (e) {
+        allDirectory = [];
+      }
+
+      initDirCategories();
+      renderDirectory();
+    }
+
+    function initCategories() {
+      const bar = document.getElementById('categories-bar');
+      const cats = [...new Set(allProducts.map(p => p.cat))];
+      bar.innerHTML = `<button class="cat-pill active" onclick="selectCategory('ALL', this)">الكل (${allProducts.length})</button>`;
+      cats.forEach(c => {
+        bar.innerHTML += `<button class="cat-pill" onclick="selectCategory('${c}', this)">${c}</button>`;
+      });
+    }
+
+    function selectCategory(cat, btn) {
+      selectedCategory = cat;
+      document.querySelectorAll('#categories-bar .cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts();
+    }
+
+    function renderProducts() {
+      document.getElementById('loader').classList.add('hidden');
+      const list = document.getElementById('products-list');
+      const q = document.getElementById('search-input').value.trim().toLowerCase();
+
+      const filtered = allProducts.filter(p => {
+        const matchCat = selectedCategory === 'ALL' || p.cat === selectedCategory;
+        const matchQ = p.name.toLowerCase().includes(q) || p.code.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="loader">لا توجد أصناف مطابقة لبحثك أو تأكد من تفعيل مشاركة الشيت (Anyone with the link).</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(p => {
+        const isOut = p.status.includes("غير");
+        const qty = cart[p.code] || 0;
+        const imgSrc = p.img ? p.img : DEFAULT_IMG;
+        const activePrice = getActivePrice(p);
+        const isWhole = priceMode === 'wholesale' && p.wholesalePrice > 0;
+        return `
+          <div class="product-card ${isOut ? 'out-of-stock' : ''}">
+            <div class="prod-body">
+              <img class="prod-img" src="${imgSrc}" alt="${p.name}" onerror="this.src='${DEFAULT_IMG}'">
+              <div class="prod-info">
+                <div class="prod-meta">
+                  <span class="prod-cat">${p.cat}</span>
+                  <span class="prod-status ${isOut ? 'status-out' : 'status-in'}">${p.status}</span>
+                </div>
+                <div class="prod-name">${p.name}</div>
+                ${p.note ? `<div class="prod-note">${p.note}</div>` : ''}
+                <div class="prod-price ${isWhole ? 'wholesale' : ''}">
+                  ${activePrice} ج.م ${isWhole ? '<span style="font-size:10.5px; font-weight:700;">(جملة)</span>' : ''}
+                </div>
+              </div>
+            </div>
+            ${!isOut ? `
+              <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty('${p.code}', 1)">+</button>
+                <span class="qty-val">${qty}</span>
+                <button class="qty-btn minus" onclick="changeQty('${p.code}', -1)">-</button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function initDirCategories() {
+      const bar = document.getElementById('dir-categories-bar');
+      const cats = [...new Set(allDirectory.map(d => d.cat))];
+      bar.innerHTML = `<button class="cat-pill active" onclick="selectDirCategory('ALL', this)">الكل (${allDirectory.length})</button>`;
+      cats.forEach(c => {
+        bar.innerHTML += `<button class="cat-pill" onclick="selectDirCategory('${c}', this)">${c}</button>`;
+      });
+    }
+
+    function selectDirCategory(cat, btn) {
+      selectedDirCategory = cat;
+      document.querySelectorAll('#dir-categories-bar .cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDirectory();
+    }
+
+    function renderDirectory() {
+      document.getElementById('dir-loader').classList.add('hidden');
+      const list = document.getElementById('directory-list');
+      const q = document.getElementById('dir-search-input').value.trim().toLowerCase();
+
+      const filtered = allDirectory.filter(d => {
+        const matchCat = selectedDirCategory === 'ALL' || d.cat === selectedDirCategory;
+        const matchQ = d.name.toLowerCase().includes(q) || d.address.toLowerCase().includes(q) || d.cat.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="loader">لا توجد أرقام مضافة بعد في ورقة الطوارئ أو تأكد من مشاركة الشيت للعامة.</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(d => {
+        const isMobile = d.phone.startsWith('01') && d.phone.length === 11;
+        const waNum = isMobile ? '2' + d.phone : '';
+        return `
+          <div class="dir-card">
+            <div>
+              <span class="dir-badge">${d.cat}</span>
+              <div class="dir-name">${d.name}</div>
+              ${d.address ? `<div class="dir-sub">📍 ${d.address}</div>` : ''}
+              ${d.hours ? `<div class="dir-hours">🕒 ${d.hours}</div>` : ''}
+            </div>
+            <div class="dir-actions">
+              ${d.phone ? `<a class="call-btn" href="tel:${d.phone}">📞 اتصال</a>` : ''}
+              ${waNum ? `<a class="wa-dir-btn" href="https://wa.me/${waNum}" target="_blank">💬 واتساب</a>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function changeQty(code, delta) {
+      const current = cart[code] || 0;
+      const next = Math.max(0, current + delta);
+      if (next === 0) delete cart[code];
+      else cart[code] = next;
+
+      localStorage.setItem('eagle_b2b_cart', JSON.stringify(cart));
+      renderProducts();
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      let totalCount = 0;
+      let totalPrice = 0;
+
+      Object.keys(cart).forEach(code => {
+        const prod = allProducts.find(p => p.code === code);
+        if (prod) {
+          totalCount += cart[code];
+          totalPrice += getActivePrice(prod) * cart[code];
+        }
+      });
+
+      const bar = document.getElementById('cart-bar');
+      if (totalCount > 0) {
+        bar.classList.remove('hidden');
+        document.getElementById('cart-count').textContent = totalCount;
+        document.getElementById('cart-mode-label').textContent = priceMode === 'wholesale' ? 'جملة' : 'قطاعي';
+        document.getElementById('cart-total').textContent = totalPrice.toLocaleString();
+      } else {
+        bar.classList.add('hidden');
+      }
+    }
+
+    function openCartModal() {
+      const container = document.getElementById('cart-items-container');
+      let html = "";
+      let total = 0;
+
+      Object.keys(cart).forEach(code => {
+        const prod = allProducts.find(p => p.code === code);
+        if (prod) {
+          const price = getActivePrice(prod);
+          const sub = price * cart[code];
+          total += sub;
+          html += `
+            <div class="cart-item-row">
+              <div>
+                <strong>${prod.name}</strong><br>
+                <span style="color:#94a3b8; font-size:11.5px;">الكمية: ${cart[code]} × ${price} ج.م</span>
+              </div>
+              <div style="font-weight:800; color:#38bdf8;">${sub} ج.م</div>
+            </div>
+          `;
+        }
+      });
+
+      container.innerHTML = html;
+      document.getElementById('modal-mode-badge').textContent = priceMode === 'wholesale' ? 'تسعير جملة' : 'تسعير قطاعي';
+      document.getElementById('modal-total').textContent = total.toLocaleString();
+      document.getElementById('client-name').value = localStorage.getItem('eagle_client_name') || '';
+      document.getElementById('client-address').value = localStorage.getItem('eagle_client_addr') || '';
+      document.getElementById('cart-modal').classList.remove('hidden');
+    }
+
+    function closeCartModal() {
+      document.getElementById('cart-modal').classList.add('hidden');
+    }
+
+    function sendOrderToWhatsApp() {
+      const clientName = document.getElementById('client-name').value.trim();
+      const clientAddr = document.getElementById('client-address').value.trim();
+      const clientNotes = document.getElementById('client-notes').value.trim();
+
+      if (!clientName) {
+        alert("يرجى كتابة اسم العيادة أو الصيدلية أو المشتري أولاً.");
+        return;
+      }
+
+      localStorage.setItem('eagle_client_name', clientName);
+      localStorage.setItem('eagle_client_addr', clientAddr);
+
+      const modeText = priceMode === 'wholesale' ? '📦 طلبية جملة' : '🛍️ طلبية قطاعي';
+      let lines = [
+        `*طلبية جديدة - إيجل للمستلزمات الطبية* 🏥`,
+        `🏷️ *نوع التسعير:* ${modeText}`,
+        `👤 *العميل:* ${clientName}`,
+        clientAddr ? `📍 *العنوان:* ${clientAddr}` : '',
+        `--------------------------`
+      ].filter(Boolean);
+
+      let total = 0;
+      let idx = 1;
+      Object.keys(cart).forEach(code => {
+        const prod = allProducts.find(p => p.code === code);
+        if (prod) {
+          const price = getActivePrice(prod);
+          const sub = price * cart[code];
+          total += sub;
+          lines.push(`${idx}. ${prod.name}\n   الكمية: *${cart[code]}* × ${price} = *${sub} ج.م*`);
+          idx++;
+        }
+      });
+
+      lines.push(`--------------------------`);
+      lines.push(`💰 *الإجمالي التقديري:* ${total.toLocaleString()} ج.م`);
+      if (clientNotes) lines.push(`📝 *ملاحظات:* ${clientNotes}`);
+
+      const waUrl = `https://wa.me/${SALES_WHATSAPP}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(waUrl, '_blank');
+    }
+
+    function sendPrescriptionWA() {
+      const msg = "السلام عليكم إيجل للمستلزمات الطبية، أود الاستفسار عن توافر صنف / إرسال صورة روشتة:";
+      window.open(`https://wa.me/${SALES_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function shareApp() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'إيجل للمستلزمات الطبية والدليل الطبي',
+          text: 'كتالوج أسعار المستلزمات الطبية ودليل أرقام الطوارئ والصيدليات والعيادات:',
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert("تم نسخ رابط التطبيق لمشاركته مع أصدقائك!");
+      }
+    }
+
+    loadCatalog();
+    loadDirectory();
+  </script>
+</body>
+</html>

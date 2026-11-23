@@ -1,11 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10334f">
-<meta name="description" content="إيجل للمستلزمات الطبية - تسوق المستلزمات الطبية في الفشن وبني سويف.">
+<meta name="description" content="إيجل للمستلزمات الطبية - تسوق المستلزمات الطبية في الفشن وبني سويف وجميع المحافظات.">
 <title>إيجل للمستلزمات الطبية | Eagle Medical</title>
 
 <link rel="icon" href="Images/favicon-64.png">
@@ -864,17 +863,26 @@ alt="Eagle Medical">
 
 <div class="feature">
 <div class="feature-icon">🚚</div>
-<div><strong>توصيل للباب</strong><small>الفشن والمناطق القريبة</small></div>
+<div>
+<strong>توصيل للباب</strong>
+<small>شحن لجميع المحافظات</small>
+</div>
 </div>
 
 <div class="feature">
 <div class="feature-icon">💬</div>
-<div><strong>طلب سهل</strong><small>تواصل عبر واتساب</small></div>
+<div>
+<strong>طلب سهل</strong>
+<small>تواصل عبر واتساب</small>
+</div>
 </div>
 
 <div class="feature">
 <div class="feature-icon">🩺</div>
-<div><strong>احتياجاتك الطبية</strong><small>للبيت والعيادات</small></div>
+<div>
+<strong>احتياجاتك الطبية</strong>
+<small>للبيت والعيادات</small>
+</div>
 </div>
 
 </section>
@@ -891,13 +899,18 @@ alt="Eagle Medical">
 </div>
 
 <div class="mode-switch">
+
 <button id="btn-retail" class="mode-btn active-retail"
-onclick="setPriceMode('retail')">🛍️ أسعار القطاعي</button>
+onclick="setPriceMode('retail')">
+🛍️ أسعار القطاعي
+</button>
 
 <button id="btn-wholesale" class="mode-btn"
-onclick="requestWholesaleMode()">📦 أسعار الجملة 🔒</button>
-</div>
+onclick="requestWholesaleMode()">
+📦 أسعار الجملة 🔒
+</button>
 
+</div>
 </div>
 
 <div class="rx-banner" onclick="sendPrescriptionWA()">
@@ -936,7 +949,9 @@ oninput="renderDirectory()">
 
 </section>
 
-<div id="loader" class="loader">⏳ جاري تحميل أحدث الأسعار من إيجل...</div>
+<div id="loader" class="loader">
+⏳ جاري تحميل أحدث الأسعار من إيجل...
+</div>
 
 <section id="products-list" class="products-grid"></section>
 
@@ -985,6 +1000,8 @@ onclick="switchTab('directory')">
 
 </nav>
 
+<!-- نافذة كلمة سر الجملة -->
+
 <div class="modal-overlay hidden" id="pass-modal"
 onclick="if(event.target===this)closePassModal()">
 
@@ -999,7 +1016,8 @@ onclick="if(event.target===this)closePassModal()">
 أدخل كود الجملة المخصص لك من إدارة إيجل.
 </p>
 
-<input type="password" id="wholesale-pass-input"
+<input type="password"
+id="wholesale-pass-input"
 class="order-input"
 style="text-align:center;letter-spacing:4px"
 placeholder="الرقم السري">
@@ -1012,6 +1030,8 @@ onclick="verifyWholesalePass()">
 
 </div>
 </div>
+
+<!-- نافذة السلة -->
 
 <div class="modal-overlay hidden" id="cart-modal"
 onclick="if(event.target===this)closeCartModal()">
@@ -1049,7 +1069,7 @@ onclick="sendOrderToWhatsApp()">
 
 <script>
 
-/* إعدادات Google Sheets */
+/* إعدادات الموقع والربط */
 
 const SHEET_ID =
 "17PjCSa5wKY1zsoKEfCtnJiZLcF2Ofh9zW8tl2AlroFs";
@@ -1060,7 +1080,12 @@ const CATALOG_CSV_URL =
 const DIRECTORY_CSV_URL =
 `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent("الطوارئ")}`;
 
+/* كلمة سر أسعار الجملة */
+
 const WHOLESALE_PASS = "2030";
+
+/* رقم واتساب إيجل */
+
 const SALES_WHATSAPP = "201015055610";
 
 const DEFAULT_IMG =
@@ -1068,6 +1093,7 @@ const DEFAULT_IMG =
 
 let allProducts = [];
 let allDirectory = [];
+
 let selectedCategory = "ALL";
 let selectedDirCategory = "ALL";
 
@@ -1082,6 +1108,8 @@ cart = JSON.parse(localStorage.getItem("eagle_b2b_cart")||"{}")||{};
 }catch(e){
 cart = {};
 }
+
+/* أدوات مساعدة */
 
 function normalizeDigits(s){
 return String(s||"").replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d));
@@ -1107,13 +1135,15 @@ for(let i=0;i<str.length;i++){
 const c=str[i],n=str[i+1];
 
 if(c==='"'&&quoted&&n==='"'){
-field+='"';i++;
+field+='"';
+i++;
 }
 else if(c==='"'){
 quoted=!quoted;
 }
 else if(c===','&&!quoted){
-row.push(field);field="";
+row.push(field);
+field="";
 }
 else if((c==='\n'||c==='\r')&&!quoted){
 
@@ -1148,7 +1178,7 @@ if(p.length===10&&p.startsWith("1"))p="0"+p;
 return p;
 }
 
-/* التنقل */
+/* التنقل بين الصفحات */
 
 function switchTab(tab){
 
@@ -1174,7 +1204,7 @@ document.querySelector(".features").classList.toggle("hidden",!store);
 updateCartUI();
 }
 
-/* الأسعار */
+/* التحكم في الأسعار */
 
 function setPriceMode(mode){
 
@@ -1236,6 +1266,8 @@ alert("الكود غير صحيح. تواصل مع إدارة إيجل.");
 
 }
 
+/* تحديد السعر */
+
 function getActivePrice(p){
 
 return priceMode==="wholesale"&&p.wholesalePrice>0
@@ -1244,7 +1276,7 @@ return priceMode==="wholesale"&&p.wholesalePrice>0
 
 }
 
-/* تحميل البيانات */
+/* تحميل البيانات من Google Sheets */
 
 async function fetchCSV(url){
 
@@ -1423,7 +1455,7 @@ const img=p.img?escapeHTML(p.img):DEFAULT_IMG;
 
 return `
 
-<article class="product-card ${out?"out-of-stock":""}">
+<article class="product-card">
 
 <div class="product-image-wrap">
 
@@ -1485,7 +1517,7 @@ updateCartUI();
 
 }
 
-/* الدليل الطبي */
+/* دليل الخدمات الطبية */
 
 function initDirCategories(){
 
@@ -1572,7 +1604,7 @@ ${wa?`<a class="wa-dir-btn" href="https://wa.me/${wa}" target="_blank" rel="noop
 
 }
 
-/* السلة */
+/* إدارة السلة */
 
 function changeQty(code,delta){
 
@@ -1638,6 +1670,8 @@ getCartTotal().toLocaleString("en-US");
 
 }
 
+/* فتح السلة */
+
 function openCartModal(){
 
 const items=getCartItems();
@@ -1699,7 +1733,7 @@ document.getElementById("cart-modal").classList.add("hidden");
 
 }
 
-/* إرسال الطلب */
+/* إرسال الطلب عبر واتساب */
 
 function sendOrderToWhatsApp(){
 
@@ -1775,7 +1809,7 @@ window.open(url,"_blank","noopener");
 
 }
 
-/* الروشتات */
+/* إرسال الروشتة والاستفسارات */
 
 function sendPrescriptionWA(){
 
@@ -1790,7 +1824,7 @@ window.open(
 
 }
 
-/* المشاركة */
+/* مشاركة الموقع */
 
 async function shareApp(){
 
@@ -1839,4 +1873,3 @@ updateCartUI();
 </script>
 </body>
 </html>
-```

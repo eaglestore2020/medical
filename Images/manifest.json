@@ -1,25 +1,17 @@
 {
-  "name": "Eagle Medical",
-  "short_name": "Eagle",
-  "description": "إيجل للمستلزمات الطبية",
+  "name": "إيجل للمستلزمات الطبية",
+  "short_name": "Eagle Medical",
+  "description": "متجر إيجل للمستلزمات الطبية",
+  "lang": "ar",
+  "dir": "rtl",
   "start_url": "/medical/",
   "scope": "/medical/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#146fbe",
-  "lang": "ar",
-  "dir": "rtl",
+  "background_color": "#f5f9fc",
+  "theme_color": "#10334f",
   "icons": [
-    {
-      "src": "/medical/Images/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/medical/Images/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    {"src": "/medical/Images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/medical/Images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
   ]
 }

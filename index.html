@@ -1192,7 +1192,7 @@ parseFloat(normalizeDigits(rows[i][3]||"0")
 .replace(/[^\d.]/g,""))||0;  
   
 const wholesale=  
-parseFloat(normalizeDigits(rows[i][7]||"0")  
+parseFloat(normalizeDigits(rows[i][4]||"0")  
 .replace(/[^\d.]/g,""))||0;  
   
 allProducts.push({  
@@ -1204,9 +1204,9 @@ name,
 retailPrice:retail,  
 wholesalePrice:wholesale,  
   
-status:(rows[i][4]||"متوفر").trim(),  
-note:(rows[i][5]||"").trim(),  
-img:(rows[i][6]||"").trim()  
+status:(rows[i][5]||"متوفر").trim(),  
+note:(rows[i][6]||"").trim(),  
+img:(rows[i][7]||"").trim()  
   
 });  
   

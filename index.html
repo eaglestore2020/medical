@@ -811,7 +811,10 @@ onerror="this.style.display='none'">  <div>
 <div class="brand-name">إيجل للمستلزمات الطبية</div>  
 <div class="brand-sub">رعايتك تبدأ من اختيارك الصحيح</div>  
 </div>  
-</div>  <button class="outline-btn" onclick="shareApp()">↗ مشاركة المتجر</button>
+</div>  <div style="display:flex;align-items:center;gap:6px">
+<button id="install-btn" class="outline-btn hidden" style="background:var(--blue);color:#fff;border-color:var(--blue)" onclick="installApp()">📲 تثبيت التطبيق</button>
+<button class="outline-btn" onclick="shareApp()">↗ مشاركة المتجر</button>
+</div>
 
 </div>  
 </div>  
@@ -1738,6 +1741,39 @@ alert("تعذرت المشاركة. يمكنك نسخ رابط الصفحة يد
 }  
   
 }  
+
+/* تثبيت التطبيق (PWA) */
+
+let deferredPrompt;
+const installBtn = document.getElementById("install-btn");
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.classList.remove("hidden");
+});
+
+async function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === "accepted") {
+      installBtn.classList.add("hidden");
+    }
+    deferredPrompt = null;
+  } else {
+    alert("لتثبيت التطبيق على هاتفك: اضغط على قائمة المتصفح (⋮ أو زر المشاركة) ثم اختر (تثبيت التطبيق / Add to Home Screen).");
+  }
+}
+
+window.addEventListener("appinstalled", () => {
+  installBtn.classList.add("hidden");
+  deferredPrompt = null;
+});
   
 /* تشغيل الموقع */  
   

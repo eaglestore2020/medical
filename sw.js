@@ -1,4 +1,4 @@
-const CACHE_NAME = "eagle-medical-v1";
+const CACHE_NAME = "eagle-medical-v2";
 const FILES_TO_CACHE = [
   "/medical/",
   "/medical/index.html",

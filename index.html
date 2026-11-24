@@ -133,7 +133,8 @@ button,input{font:inherit}button{cursor:pointer}
  <div class="header-inner">
   <div class="topline">
    <div class="brand">
-    <img class="brand-logo" src="Images/eagle-logo.png" alt="شعار إيجل للمستلزمات الطبية">
+    <img class="brand-logo" src="/medical/Images/eagle-logo.png?v=2" alt="شعار إيجل للمستلزمات الطبية" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+    <div class="brand-mark" style="display:none" aria-label="إيجل">🦅</div>
     <div><div class="brand-name">إيجل للمستلزمات الطبية</div><div class="brand-sub">رعايتك تبدأ من اختيارك الصحيح</div></div>
    </div>
    <div class="header-actions"><button class="outline-btn" id="install-btn" onclick="installApp()" hidden>📲 تثبيت التطبيق</button><button class="outline-btn" onclick="shareApp()">↗ مشاركة المتجر</button></div>
@@ -225,7 +226,9 @@ const SALES_WHATSAPP = "201015055610";
 const DEFAULT_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='18' fill='%23edf5f9'/%3E%3Cpath d='M43 25h34v70H43z' fill='white' stroke='%23087eb5' stroke-width='3'/%3E%3Cpath d='M52 48h16M60 40v16' stroke='%23087eb5' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E";
 
 let allProducts=[], allDirectory=[], selectedCategory="ALL", selectedDirCategory="ALL";
-let priceMode=localStorage.getItem("eagle_wholesale_unlocked")==="true"?"wholesale":"retail";
+let priceMode="retail";
+// لا نحفظ فتح أسعار الجملة في المتصفح؛ يجب إدخال كلمة السر عند كل جلسة جديدة.
+let wholesaleUnlockedThisSession=false;
 let cart={};
 try{cart=JSON.parse(localStorage.getItem("eagle_b2b_cart")||"{}")||{}}catch(e){cart={}}
 
@@ -263,14 +266,18 @@ function updateModeUI(){
  document.getElementById("btn-wholesale").textContent=whole?"📦 أسعار الجملة 🔓":"📦 أسعار الجملة 🔒";
 }
 function requestWholesaleMode(){
- if(localStorage.getItem("eagle_wholesale_unlocked")==="true"){setPriceMode("wholesale");return}
- document.getElementById("pass-modal").classList.remove("hidden");
- document.getElementById("wholesale-pass-input").focus();
+ if(wholesaleUnlockedThisSession){setPriceMode("wholesale");return}
+ const modal=document.getElementById("pass-modal");
+ const input=document.getElementById("wholesale-pass-input");
+ modal.classList.remove("hidden");
+ input.value="";
+ // تأخير التركيز قليلًا حتى يظهر مربع كلمة السر بشكل صحيح على متصفحات الموبايل.
+ setTimeout(()=>{try{input.focus({preventScroll:true})}catch(e){input.focus()}},120);
 }
 function closePassModal(){document.getElementById("pass-modal").classList.add("hidden")}
 function verifyWholesalePass(){
  const value=normalizeDigits(document.getElementById("wholesale-pass-input").value.trim());
- if(value===WHOLESALE_PASS){localStorage.setItem("eagle_wholesale_unlocked","true");closePassModal();setPriceMode("wholesale")}
+ if(value===WHOLESALE_PASS){wholesaleUnlockedThisSession=true;closePassModal();setPriceMode("wholesale")}
  else alert("الكود غير صحيح. تواصل مع إدارة إيجل.");
 }
 function getActivePrice(p){return priceMode==="wholesale"&&p.wholesalePrice>0?p.wholesalePrice:p.retailPrice}

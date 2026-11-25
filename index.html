@@ -258,6 +258,50 @@ font-size:11px;
 font-weight:900;  
 white-space:nowrap;  
 }  
+
+/* DEDICATED OFFERS PAGE */
+
+.offers-page-wrap{
+max-width:1180px;
+margin:20px auto;
+padding:0 20px;
+}
+
+.offers-page-hero{
+background:linear-gradient(120deg,#b8431b,#e66432,#d99519);
+color:#fff;
+border-radius:20px;
+padding:22px 24px;
+margin-bottom:18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:14px;
+flex-wrap:wrap;
+box-shadow:0 12px 28px rgba(230,100,50,.22);
+}
+
+.offers-page-hero h2{
+font-size:22px;
+font-weight:900;
+margin-bottom:4px;
+}
+
+.offers-page-hero p{
+font-size:12px;
+color:#fff5e6;
+}
+
+.back-store-btn{
+background:#fff;
+color:#b8431b;
+border:0;
+padding:10px 16px;
+border-radius:11px;
+font-size:12px;
+font-weight:900;
+white-space:nowrap;
+}
   
 /* MAIN */  
   
@@ -396,12 +440,6 @@ color:#c45125;
 background:#fff8f2;  
 }  
   
-.cat-pill.offer-pill-tab.active{  
-background:#e66432;  
-border-color:#e66432;  
-color:#fff;  
-}  
-  
 /* PRODUCTS */  
   
 .products-grid{  
@@ -455,7 +493,7 @@ flex-wrap:wrap;
 margin-bottom:6px;  
 }  
   
-.prod-cat,.prod-status,.prod-offer-badge{  
+.prod-cat,.prod-status,.prod-offer-badge,.prod-bonus-badge{  
 font-size:10px;  
 padding:3px 8px;  
 border-radius:20px;  
@@ -470,7 +508,12 @@ color:var(--blue);
 .prod-offer-badge{  
 background:#fff0e6;  
 color:#d9531e;  
-}  
+}
+
+.prod-bonus-badge{
+background:#fdf3e1;
+color:#b77a10;
+}
   
 .status-in{  
 background:#eaf8f1;  
@@ -733,6 +776,12 @@ font-size:14px;
 .offers-card strong{font-size:12px}  
 .offers-card small{font-size:10px}  
 .offers-pill{padding:6px 10px;font-size:10px}  
+
+.offers-page-wrap{padding:0 12px;margin-top:14px}
+.offers-page-hero{padding:16px;border-radius:16px}
+.offers-page-hero h2{font-size:17px}
+.offers-page-hero p{font-size:11px}
+.back-store-btn{padding:8px 12px;font-size:11px}
   
 .main{  
 padding:0 12px;  
@@ -772,7 +821,7 @@ font-size:10px;
 }  
 </style>  </head>  <body>  <header class="site-header">  
 <div class="header-inner">  
-<div class="topline">  <div class="brand">  
+<div class="topline">  <div class="brand" style="cursor:pointer" onclick="closeOffersPage()">  
 <img class="brand-logo"  
 src="Images/eagle-logo.png"  
 alt="Eagle Logo"  
@@ -787,7 +836,12 @@ onerror="this.style.display='none'">  <div>
 
 </div>  
 </div>  
-</header>  <section class="hero" id="hero">  
+</header>  
+
+<!-- الصفحة الرئيسية للمتجر -->
+<div id="store-page">
+
+<section class="hero" id="hero">  
 <div class="hero-panel">  <div class="hero-copy">  
 <div class="hero-kicker">EAGLE MEDICAL SUPPLIES</div>  <h1>كل احتياجاتك الطبية… في مكان واحد</h1>  <p>  
 تصفح المستلزمات الطبية والأسعار، جهّز طلبك بسهولة،  
@@ -818,13 +872,13 @@ alt="Eagle Medical">
 <strong>احتياجاتك الطبية</strong>  
 <small>للبيت والعيادات</small>  
 </div>  
-</div>  </section>  <section class="offers-banner" onclick="openOffersSection()">  
+</div>  </section>  <section class="offers-banner" onclick="openOffersPage()">  
 <div class="offers-card">  
 <div>  
-<strong>🔥 عروض وخصومات إيجل اليومية</strong>  
-<small>باقات توفير وأسعار مخفضة لفترة محدودة</small>  
+<strong>🔥 عروض وخصومات وبوانص إيجل</strong>  
+<small>اضغط للدخول إلى صفحة العروض والبوانص الخاصة</small>  
 </div>  
-<span class="offers-pill">عرض الكل ←</span>  
+<span class="offers-pill">فتح الصفحة ←</span>  
 </div>  
 </section>  <main class="main" id="catalog">  <section class="toolbar" id="store-controls">  <div class="toolbar-top">  <div>  
 <div class="section-heading">تسوّق المستلزمات الطبية</div>  
@@ -850,7 +904,49 @@ placeholder="ابحث باسم الصنف أو الكود..."
 oninput="renderProducts()">  
 </div>  <div class="categories" id="categories-bar"></div>  </section>  <div id="loader" class="loader">  
 ⏳ جاري تحميل أحدث الأسعار من إيجل...  
-</div>  <section id="products-list" class="products-grid"></section>  </main>  <div class="site-footer">  
+</div>  <section id="products-list" class="products-grid"></section>  </main>  
+
+</div>
+
+<!-- صفحة العروض والبوانص المنفصلة -->
+<div id="offers-page" class="offers-page-wrap hidden">
+
+<div class="offers-page-hero">
+<div>
+<h2>🔥 صفحة العروض والبوانص</h2>
+<p>أقوى خصومات إيجل وبوانص الكميات للأفراد والعيادات والصيدليات</p>
+</div>
+<button class="back-store-btn" onclick="closeOffersPage()">→ الرجوع للمتجر الرئيسي</button>
+</div>
+
+<section class="toolbar">
+<div class="toolbar-top">
+<div>
+<div class="section-heading">قائمة العروض والبوانص المتاحة</div>
+<div class="section-caption">أضف العرض مباشرة إلى سلة طلباتك</div>
+</div>
+
+<div class="mode-switch">
+<button id="btn-retail-offers" class="mode-btn active-retail" onclick="setPriceMode('retail')">
+🛍️ أسعار القطاعي
+</button>
+<button id="btn-wholesale-offers" class="mode-btn" onclick="requestWholesaleMode()">
+📦 أسعار الجملة 🔒
+</button>
+</div>
+</div>
+
+<div class="search-wrap">
+<span class="search-icon">⌕</span>
+<input id="offers-search-input" placeholder="ابحث داخل العروض والبوانص..." oninput="renderOffersPage()">
+</div>
+</section>
+
+<section id="offers-list" class="products-grid"></section>
+
+</div>
+
+<div class="site-footer">  
 إيجل للمستلزمات الطبية • بجوار مستشفى زهور الحياة • الفشن، بني سويف  
 </div>  <div class="cart-bar hidden" id="cart-bar" onclick="openCartModal()">  <div class="cart-summary">  
 🛒 <span id="cart-count">0</span> قطعة •  
@@ -950,8 +1046,9 @@ return String(s??"").replace(/[&<>"']/g,c=>({
 }[c]));  
 }  
   
-function isOfferProduct(p){  
-return p.cat.includes("عروض")||p.cat.includes("العروض");  
+function isOfferOrBonus(p){  
+const c=p.cat.toLowerCase();
+return c.includes("عروض")||c.includes("العروض")||c.includes("بونص")||c.includes("بوانص");  
 }  
   
 function parseCSV(str){  
@@ -1004,6 +1101,7 @@ function setPriceMode(mode){
   
 priceMode=mode;  
 renderProducts();  
+renderOffersPage();
 updateCartUI();  
   
 }  
@@ -1019,6 +1117,15 @@ document.getElementById("btn-wholesale").className=
 "mode-btn "+(whole?"active-wholesale":"");  
   
 document.getElementById("btn-wholesale").textContent=  
+whole?"📦 أسعار الجملة 🔓":"📦 أسعار الجملة 🔒";  
+
+document.getElementById("btn-retail-offers").className=  
+"mode-btn "+(!whole?"active-retail":"");  
+  
+document.getElementById("btn-wholesale-offers").className=  
+"mode-btn "+(whole?"active-wholesale":"");  
+  
+document.getElementById("btn-wholesale-offers").textContent=  
 whole?"📦 أسعار الجملة 🔓":"📦 أسعار الجملة 🔒";  
   
 }  
@@ -1132,6 +1239,7 @@ document.getElementById("loader").classList.add("hidden");
   
 initCategories();  
 renderProducts();  
+renderOffersPage();
   
 }catch(e){  
   
@@ -1149,30 +1257,42 @@ function initCategories(){
 const bar=document.getElementById("categories-bar");  
   
 const cats=[...new Set(allProducts.map(p=>p.cat))];  
-const offersCount=allProducts.filter(isOfferProduct).length;  
+const offersCount=allProducts.filter(isOfferOrBonus).length;  
   
 bar.innerHTML=  
 `<button class="cat-pill active" data-cat="ALL">كل المنتجات (${allProducts.length})</button>`+  
-`<button class="cat-pill offer-pill-tab" data-cat="OFFERS">🔥 العروض (${offersCount})</button>`+  
-cats.filter(c=>!c.includes("عروض")&&!c.includes("العروض")).map(c=>  
+`<button class="cat-pill offer-pill-tab" data-cat="OFFERS_PAGE">🔥 العروض والبوانص (${offersCount})</button>`+  
+cats.filter(c=>!c.includes("عروض")&&!c.includes("العروض")&&!c.includes("بونص")&&!c.includes("بوانص")).map(c=>  
 `<button class="cat-pill" data-cat="${escapeHTML(c)}">${escapeHTML(c)}</button>`  
 ).join("");  
   
 }  
-  
-function openOffersSection(){  
-selectedCategory="OFFERS";  
-document.querySelectorAll("#categories-bar .cat-pill")  
-.forEach(x=>x.classList.toggle("active",x.dataset.cat==="OFFERS"));  
-renderProducts();  
-document.getElementById("catalog").scrollIntoView({behavior:"smooth"});  
-}  
+
+/* التنقل بين صفحة المتجر وصفحة العروض المنفصلة */
+
+function openOffersPage(){
+document.getElementById("store-page").classList.add("hidden");
+document.getElementById("offers-page").classList.remove("hidden");
+renderOffersPage();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function closeOffersPage(){
+document.getElementById("offers-page").classList.add("hidden");
+document.getElementById("store-page").classList.remove("hidden");
+window.scrollTo({top:0,behavior:"smooth"});
+}
   
 document.getElementById("categories-bar").addEventListener("click",e=>{  
   
 const b=e.target.closest("[data-cat]");  
   
 if(!b)return;  
+
+if(b.dataset.cat==="OFFERS_PAGE"){
+openOffersPage();
+return;
+}
   
 selectedCategory=b.dataset.cat;  
   
@@ -1182,8 +1302,57 @@ document.querySelectorAll("#categories-bar .cat-pill")
 renderProducts();  
   
 });  
+
+/* بناء كارت المنتج */
+
+function buildProductCardHTML(p){
+const out=p.status.includes("غير")||p.status.includes("نفد");  
+const qty=Number(cart[p.code]||0);  
+const whole=priceMode==="wholesale"&&p.wholesalePrice>0;  
+const isBonus=p.cat.includes("بونص")||p.cat.includes("بوانص");
+const isOffer=p.cat.includes("عروض")||p.cat.includes("العروض");
   
-/* عرض المنتجات */  
+const img=p.img?escapeHTML(p.img):DEFAULT_IMG;  
+  
+return `  
+<article class="product-card">  
+<div class="product-image-wrap">  
+<img class="prod-img"  
+src="${img}"  
+alt="${escapeHTML(p.name)}"  
+loading="lazy"  
+onerror="this.onerror=null;this.src='${DEFAULT_IMG}'">  
+</div>  
+<div class="prod-meta">  
+<span class="prod-cat">${escapeHTML(p.cat)}</span>  
+${isBonus?'<span class="prod-bonus-badge">🎁 بونص مجاني</span>':(isOffer?'<span class="prod-offer-badge">🔥 عرض خاص</span>':'')}  
+<span class="prod-status ${out?"status-out":"status-in"}">  
+${escapeHTML(p.status)}  
+</span>  
+</div>  
+<div class="prod-name">${escapeHTML(p.name)}</div>  
+${p.note?`<div class="prod-note">${escapeHTML(p.note)}</div>`:""}  
+<div class="product-bottom">  
+<div class="prod-price ${whole?"wholesale":""}">  
+${getActivePrice(p).toLocaleString("en-US")}  
+<small>ج.م${whole?" • جملة":""}</small>  
+</div>  
+${out?  
+'<span>غير متاح حاليًا</span>':  
+`<div class="qty-controls">  
+<button class="qty-btn"  
+onclick="changeQty('${escapeHTML(p.code)}',1)">+</button>  
+<span class="qty-val">${qty}</span>  
+<button class="qty-btn minus"  
+onclick="changeQty('${escapeHTML(p.code)}',-1)">−</button>  
+</div>`  
+}  
+</div>  
+</article>  
+`;
+}
+  
+/* عرض المنتجات الرئيسية */  
   
 function renderProducts(){  
   
@@ -1191,101 +1360,50 @@ updateModeUI();
   
 const q=document.getElementById("search-input").value.trim().toLowerCase();  
   
-const filtered=allProducts.filter(p=>{  
-const matchCat=selectedCategory==="ALL"  
-?true  
-:(selectedCategory==="OFFERS"?isOfferProduct(p):p.cat===selectedCategory);  
-const matchQuery=p.name.toLowerCase().includes(q)||p.code.toLowerCase().includes(q);  
-return matchCat&&matchQuery;  
-});  
+const filtered=allProducts.filter(p=>  
+(selectedCategory==="ALL"||p.cat===selectedCategory)&&  
+(p.name.toLowerCase().includes(q)||p.code.toLowerCase().includes(q))  
+);  
   
 const list=document.getElementById("products-list");  
   
 if(!filtered.length){  
   
-list.innerHTML=selectedCategory==="OFFERS"  
-?'<div class="empty-state">لا توجد عروض مضافة حالياً. ترقبوا عروض إيجل قريباً!</div>'  
-:'<div class="empty-state">لا توجد منتجات مطابقة للبحث. جرّب كلمة أخرى.</div>';  
+list.innerHTML=  
+'<div class="empty-state">لا توجد منتجات مطابقة للبحث. جرّب كلمة أخرى.</div>';  
   
 updateCartUI();  
 return;  
   
 }  
   
-list.innerHTML=filtered.map(p=>{  
-  
-const out=p.status.includes("غير")||p.status.includes("نفد");  
-const qty=Number(cart[p.code]||0);  
-const whole=priceMode==="wholesale"&&p.wholesalePrice>0;  
-const offer=isOfferProduct(p);  
-  
-const img=p.img?escapeHTML(p.img):DEFAULT_IMG;  
-  
-return `  
-  
-<article class="product-card">  
-  
-<div class="product-image-wrap">  
-  
-<img class="prod-img"  
-src="${img}"  
-alt="${escapeHTML(p.name)}"  
-loading="lazy"  
-onerror="this.onerror=null;this.src='${DEFAULT_IMG}'">  
-  
-</div>  
-  
-<div class="prod-meta">  
-  
-<span class="prod-cat">${escapeHTML(p.cat)}</span>  
-  
-${offer?'<span class="prod-offer-badge">🔥 عرض خاص</span>':''}  
-  
-<span class="prod-status ${out?"status-out":"status-in"}">  
-${escapeHTML(p.status)}  
-</span>  
-  
-</div>  
-  
-<div class="prod-name">${escapeHTML(p.name)}</div>  
-  
-${p.note?`<div class="prod-note">${escapeHTML(p.note)}</div>`:""}  
-  
-<div class="product-bottom">  
-  
-<div class="prod-price ${whole?"wholesale":""}">  
-${getActivePrice(p).toLocaleString("en-US")}  
-<small>ج.م${whole?" • جملة":""}</small>  
-</div>  
-  
-${out?  
-  
-'<span>غير متاح حاليًا</span>':  
-  
-`<div class="qty-controls">  
-  
-<button class="qty-btn"  
-onclick="changeQty('${escapeHTML(p.code)}',1)">+</button>  
-  
-<span class="qty-val">${qty}</span>  
-  
-<button class="qty-btn minus"  
-onclick="changeQty('${escapeHTML(p.code)}',-1)">−</button>  
-  
-</div>`  
-  
-}  
-  
-</div>  
-</article>  
-  
-`;  
-  
-}).join("");  
+list.innerHTML=filtered.map(buildProductCardHTML).join("");  
   
 updateCartUI();  
   
 }  
+
+/* عرض صفحة العروض والبوانص المنفصلة */
+
+function renderOffersPage(){
+updateModeUI();
+
+const q=(document.getElementById("offers-search-input")?.value||"").trim().toLowerCase();
+
+const offers=allProducts.filter(p=>
+isOfferOrBonus(p)&&
+(p.name.toLowerCase().includes(q)||p.code.toLowerCase().includes(q))
+);
+
+const list=document.getElementById("offers-list");
+
+if(!offers.length){
+list.innerHTML='<div class="empty-state">لا توجد عروض أو بوانص مضافة حالياً. ترقبوا عروض إيجل قريباً!</div>';
+return;
+}
+
+list.innerHTML=offers.map(buildProductCardHTML).join("");
+}
   
 /* إدارة السلة */  
   
@@ -1303,6 +1421,7 @@ else cart[code]=next;
 localStorage.setItem("eagle_b2b_cart",JSON.stringify(cart));  
   
 renderProducts();  
+renderOffersPage();
   
 }  
   

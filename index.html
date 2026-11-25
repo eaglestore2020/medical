@@ -34,7 +34,7 @@ font-family:'Cairo',sans-serif;
 body{  
 background:var(--bg);  
 color:var(--ink);  
-padding-bottom:110px;  
+padding-bottom:85px;  
 }  
   
 button,input{font:inherit}  
@@ -212,11 +212,58 @@ font-size:10px;
 color:var(--muted);  
 }  
   
+/* OFFERS BANNER */  
+  
+.offers-banner{  
+max-width:1180px;  
+margin:14px auto 0;  
+padding:0 20px;  
+}  
+  
+.offers-card{  
+background:linear-gradient(115deg,#d99519,#e66432);  
+color:#fff;  
+border-radius:16px;  
+padding:14px 18px;  
+display:flex;  
+align-items:center;  
+justify-content:space-between;  
+gap:12px;  
+cursor:pointer;  
+box-shadow:0 8px 22px rgba(217,149,25,.22);  
+transition:.2s;  
+}  
+  
+.offers-card:hover{  
+transform:translateY(-2px);  
+}  
+  
+.offers-card strong{  
+font-size:14px;  
+font-weight:900;  
+display:block;  
+}  
+  
+.offers-card small{  
+font-size:11px;  
+color:#fff6e5;  
+}  
+  
+.offers-pill{  
+background:#fff;  
+color:#c45125;  
+padding:7px 14px;  
+border-radius:10px;  
+font-size:11px;  
+font-weight:900;  
+white-space:nowrap;  
+}  
+  
 /* MAIN */  
   
 .main{  
 max-width:1180px;  
-margin:25px auto;  
+margin:20px auto;  
 padding:0 20px;  
 }  
   
@@ -343,6 +390,18 @@ border-color:#a9dff5;
 color:var(--blue);  
 }  
   
+.cat-pill.offer-pill-tab{  
+border-color:#f6c89f;  
+color:#c45125;  
+background:#fff8f2;  
+}  
+  
+.cat-pill.offer-pill-tab.active{  
+background:#e66432;  
+border-color:#e66432;  
+color:#fff;  
+}  
+  
 /* PRODUCTS */  
   
 .products-grid{  
@@ -396,7 +455,7 @@ flex-wrap:wrap;
 margin-bottom:6px;  
 }  
   
-.prod-cat,.prod-status{  
+.prod-cat,.prod-status,.prod-offer-badge{  
 font-size:10px;  
 padding:3px 8px;  
 border-radius:20px;  
@@ -406,6 +465,11 @@ font-weight:800;
 .prod-cat{  
 background:#edf7fc;  
 color:var(--blue);  
+}  
+  
+.prod-offer-badge{  
+background:#fff0e6;  
+color:#d9531e;  
 }  
   
 .status-in{  
@@ -494,78 +558,11 @@ border-radius:15px;
 font-size:13px;  
 }  
   
-/* DIRECTORY */  
-  
-.directory-grid{  
-display:grid;  
-grid-template-columns:repeat(2,minmax(0,1fr));  
-gap:13px;  
-}  
-  
-.dir-card{  
-background:white;  
-border:1px solid var(--line);  
-border-radius:16px;  
-padding:15px;  
-display:flex;  
-justify-content:space-between;  
-gap:12px;  
-}  
-  
-.dir-badge{  
-background:#fff1f1;  
-color:#c84b53;  
-padding:3px 9px;  
-border-radius:20px;  
-font-size:10px;  
-}  
-  
-.dir-name{  
-font-size:15px;  
-font-weight:900;  
-color:var(--navy);  
-}  
-  
-.dir-sub,.dir-hours{  
-font-size:11px;  
-color:var(--muted);  
-margin-top:5px;  
-}  
-  
-.dir-hours{color:var(--blue)}  
-  
-.dir-actions{  
-display:flex;  
-flex-direction:column;  
-gap:7px;  
-justify-content:center;  
-}  
-  
-.call-btn,.wa-dir-btn{  
-text-decoration:none;  
-padding:7px 10px;  
-border-radius:9px;  
-font-size:11px;  
-font-weight:900;  
-text-align:center;  
-white-space:nowrap;  
-}  
-  
-.call-btn{  
-background:#eaf8f1;  
-color:var(--green);  
-}  
-  
-.wa-dir-btn{  
-background:#edf7fc;  
-color:var(--blue);  
-}  
-  
 /* CART */  
   
 .cart-bar{  
 position:fixed;  
-bottom:72px;  
+bottom:16px;  
 left:50%;  
 transform:translateX(-50%);  
 width:min(720px,calc(100% - 24px));  
@@ -593,41 +590,6 @@ padding:7px 13px;
 border-radius:9px;  
 font-size:11px;  
 font-weight:900;  
-}  
-  
-/* NAV */  
-  
-.bottom-nav{  
-position:fixed;  
-bottom:0;  
-left:0;  
-right:0;  
-height:65px;  
-background:white;  
-border-top:1px solid var(--line);  
-display:flex;  
-z-index:35;  
-}  
-  
-.nav-tab{  
-flex:1;  
-border:0;  
-background:transparent;  
-color:#8295a3;  
-font-size:11px;  
-font-weight:800;  
-display:flex;  
-flex-direction:column;  
-align-items:center;  
-justify-content:center;  
-gap:2px;  
-}  
-  
-.nav-tab span:first-child{font-size:19px}  
-  
-.nav-tab.active{  
-color:var(--blue);  
-background:#f2faff;  
 }  
   
 /* MODALS */  
@@ -766,9 +728,15 @@ font-size:14px;
 .feature strong{font-size:9px}  
 .feature small{font-size:8px}  
   
+.offers-banner{padding:0 12px;margin-top:12px}  
+.offers-card{padding:11px 13px;border-radius:14px}  
+.offers-card strong{font-size:12px}  
+.offers-card small{font-size:10px}  
+.offers-pill{padding:6px 10px;font-size:10px}  
+  
 .main{  
 padding:0 12px;  
-margin-top:16px;  
+margin-top:14px;  
 }  
   
 .toolbar{padding:12px}  
@@ -792,10 +760,7 @@ font-size:10px;
 .qty-controls{gap:4px;padding:3px}  
 .qty-btn{width:25px;height:25px}  
   
-.directory-grid{grid-template-columns:1fr}  
-.dir-card{padding:12px}  
-  
-.cart-bar{bottom:72px}  
+.cart-bar{bottom:16px}  
 .cart-summary{font-size:10px}  
 .cart-action{font-size:10px;padding:7px 9px}  
 }  
@@ -853,7 +818,15 @@ alt="Eagle Medical">
 <strong>احتياجاتك الطبية</strong>  
 <small>للبيت والعيادات</small>  
 </div>  
-</div>  </section>  <main class="main" id="catalog">  <section class="toolbar" id="store-controls">  <div class="toolbar-top">  <div>  
+</div>  </section>  <section class="offers-banner" onclick="openOffersSection()">  
+<div class="offers-card">  
+<div>  
+<strong>🔥 عروض وخصومات إيجل اليومية</strong>  
+<small>باقات توفير وأسعار مخفضة لفترة محدودة</small>  
+</div>  
+<span class="offers-pill">عرض الكل ←</span>  
+</div>  
+</section>  <main class="main" id="catalog">  <section class="toolbar" id="store-controls">  <div class="toolbar-top">  <div>  
 <div class="section-heading">تسوّق المستلزمات الطبية</div>  
 <div class="section-caption">اختار الصنف والكمية وسيب علينا الباقي</div>  
 </div>  <div class="mode-switch">  <button id="btn-retail" class="mode-btn active-retail"  
@@ -875,40 +848,15 @@ onclick="requestWholesaleMode()">
 <input id="search-input"  
 placeholder="ابحث باسم الصنف أو الكود..."  
 oninput="renderProducts()">  
-</div>  <div class="categories" id="categories-bar"></div>  </section>  <section id="directory-controls" class="toolbar hidden">  <div class="toolbar-top">  
-<div>  
-<div class="section-heading">دليل الخدمات الطبية</div>  
-<div class="section-caption">أرقام وعناوين تساعدك وقت الحاجة</div>  
-</div>  
-</div>  <div class="search-wrap">  
-<span class="search-icon">⌕</span>  
-<input id="dir-search-input"  
-placeholder="ابحث عن مستشفى أو صيدلية أو طبيب..."  
-oninput="renderDirectory()">  
-</div>  <div class="categories" id="dir-categories-bar"></div>  </section>  <div id="loader" class="loader">  
+</div>  <div class="categories" id="categories-bar"></div>  </section>  <div id="loader" class="loader">  
 ⏳ جاري تحميل أحدث الأسعار من إيجل...  
-</div>  <section id="products-list" class="products-grid"></section>  <section id="directory-view" class="directory-grid hidden">  <div id="dir-loader" class="loader">  
-⏳ جاري تحميل الدليل الطبي...  
-</div>  <div id="directory-list"  
-class="directory-grid"  
-style="grid-column:1/-1">  
-</div>  </section>  </main>  <div class="site-footer">  
+</div>  <section id="products-list" class="products-grid"></section>  </main>  <div class="site-footer">  
 إيجل للمستلزمات الطبية • بجوار مستشفى زهور الحياة • الفشن، بني سويف  
 </div>  <div class="cart-bar hidden" id="cart-bar" onclick="openCartModal()">  <div class="cart-summary">  
 🛒 <span id="cart-count">0</span> قطعة •  
 <span id="cart-mode-label">قطاعي</span> •  
 <span id="cart-total">0</span> ج.م  
-</div>  <div class="cart-action">مراجعة الطلب ←</div>  </div>  <nav class="bottom-nav">  <button id="tab-store" class="nav-tab active"  
-onclick="switchTab('store')">
-<span>▦</span><span>المتجر والأسعار</span>
-</button>
-
-<button id="tab-directory" class="nav-tab"  
-onclick="switchTab('directory')">
-<span>✚</span><span>الطوارئ والعيادات</span>
-</button>
-
-</nav>  <!-- نافذة كلمة سر الجملة -->  <div class="modal-overlay hidden" id="pass-modal"  
+</div>  <div class="cart-action">مراجعة الطلب ←</div>  </div>  <!-- نافذة كلمة سر الجملة -->  <div class="modal-overlay hidden" id="pass-modal"  
 onclick="if(event.target===this)closePassModal()">  <div class="modal-sheet">  <div class="modal-header">  
 <h3 style="color:#b77a10">🔒 الدخول لأسعار الجملة</h3>  
 <button class="close-modal" onclick="closePassModal()">×</button>  
@@ -959,9 +907,6 @@ const SHEET_ID =
 const CATALOG_CSV_URL =  
 `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent("المنتجات")}`;  
   
-const DIRECTORY_CSV_URL =  
-`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent("الطوارئ")}`;  
-  
 /* كلمة سر أسعار الجملة */  
   
 const WHOLESALE_PASS = "2030";  
@@ -974,10 +919,8 @@ const DEFAULT_IMG =
 "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='18' fill='%23edf5f9'/%3E%3Cpath d='M43 25h34v70H43z' fill='white' stroke='%23087eb5' stroke-width='3'/%3E%3Cpath d='M52 48h16M60 40v16' stroke='%23087eb5' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E";  
   
 let allProducts = [];  
-let allDirectory = [];  
   
 let selectedCategory = "ALL";  
-let selectedDirCategory = "ALL";  
   
 let priceMode =  
 localStorage.getItem("eagle_wholesale_unlocked")==="true"  
@@ -1005,6 +948,10 @@ return String(s??"").replace(/[&<>"']/g,c=>({
 '"':"&quot;",  
 "'":"&#39;"  
 }[c]));  
+}  
+  
+function isOfferProduct(p){  
+return p.cat.includes("عروض")||p.cat.includes("العروض");  
 }  
   
 function parseCSV(str){  
@@ -1049,41 +996,6 @@ row.push(field);
 if(row.some(x=>x!==""))rows.push(row);  
   
 return rows;  
-}  
-  
-function formatPhone(raw){  
-  
-let p=normalizeDigits(raw).replace(/[^\d+]/g,"");  
-  
-if(p.length===10&&p.startsWith("1"))p="0"+p;  
-  
-return p;  
-}  
-  
-/* التنقل بين الصفحات */  
-  
-function switchTab(tab){  
-  
-const store=tab==="store";  
-  
-document.getElementById("tab-store").classList.toggle("active",store);  
-document.getElementById("tab-directory").classList.toggle("active",!store);  
-  
-document.getElementById("store-controls").classList.toggle("hidden",!store);  
-document.getElementById("directory-controls").classList.toggle("hidden",store);  
-  
-document.getElementById("products-list").classList.toggle("hidden",!store);  
-  
-document.getElementById("loader").classList.toggle(  
-"hidden",!store||allProducts.length>0  
-);  
-  
-document.getElementById("directory-view").classList.toggle("hidden",store);  
-document.getElementById("hero").classList.toggle("hidden",!store);  
-  
-document.querySelector(".features").classList.toggle("hidden",!store);  
-  
-updateCartUI();  
 }  
   
 /* التحكم في الأسعار */  
@@ -1230,47 +1142,6 @@ document.getElementById("loader").textContent=
   
 }  
   
-async function loadDirectory(){  
-  
-try{  
-  
-const rows=await fetchCSV(DIRECTORY_CSV_URL);  
-  
-allDirectory=[];  
-  
-for(let i=1;i<rows.length;i++){  
-  
-const name=(rows[i][1]||"").trim();  
-  
-if(name&&name!=="الاسم"){  
-  
-allDirectory.push({  
-  
-cat:(rows[i][0]||"خدمات طبية").trim(),  
-name,  
-phone:formatPhone(rows[i][2]||""),  
-address:(rows[i][3]||"").trim(),  
-hours:(rows[i][4]||"").trim()  
-  
-});  
-  
-}  
-  
-}  
-  
-}catch(e){  
-  
-allDirectory=[];  
-  
-}  
-  
-document.getElementById("dir-loader").classList.add("hidden");  
-  
-initDirCategories();  
-renderDirectory();  
-  
-}  
-  
 /* تصنيفات المنتجات */  
   
 function initCategories(){  
@@ -1278,13 +1149,23 @@ function initCategories(){
 const bar=document.getElementById("categories-bar");  
   
 const cats=[...new Set(allProducts.map(p=>p.cat))];  
+const offersCount=allProducts.filter(isOfferProduct).length;  
   
 bar.innerHTML=  
 `<button class="cat-pill active" data-cat="ALL">كل المنتجات (${allProducts.length})</button>`+  
-cats.map(c=>  
+`<button class="cat-pill offer-pill-tab" data-cat="OFFERS">🔥 العروض (${offersCount})</button>`+  
+cats.filter(c=>!c.includes("عروض")&&!c.includes("العروض")).map(c=>  
 `<button class="cat-pill" data-cat="${escapeHTML(c)}">${escapeHTML(c)}</button>`  
 ).join("");  
   
+}  
+  
+function openOffersSection(){  
+selectedCategory="OFFERS";  
+document.querySelectorAll("#categories-bar .cat-pill")  
+.forEach(x=>x.classList.toggle("active",x.dataset.cat==="OFFERS"));  
+renderProducts();  
+document.getElementById("catalog").scrollIntoView({behavior:"smooth"});  
 }  
   
 document.getElementById("categories-bar").addEventListener("click",e=>{  
@@ -1310,17 +1191,21 @@ updateModeUI();
   
 const q=document.getElementById("search-input").value.trim().toLowerCase();  
   
-const filtered=allProducts.filter(p=>  
-(selectedCategory==="ALL"||p.cat===selectedCategory)&&  
-(p.name.toLowerCase().includes(q)||p.code.toLowerCase().includes(q))  
-);  
+const filtered=allProducts.filter(p=>{  
+const matchCat=selectedCategory==="ALL"  
+?true  
+:(selectedCategory==="OFFERS"?isOfferProduct(p):p.cat===selectedCategory);  
+const matchQuery=p.name.toLowerCase().includes(q)||p.code.toLowerCase().includes(q);  
+return matchCat&&matchQuery;  
+});  
   
 const list=document.getElementById("products-list");  
   
 if(!filtered.length){  
   
-list.innerHTML=  
-'<div class="empty-state">لا توجد منتجات مطابقة للبحث. جرّب كلمة أخرى.</div>';  
+list.innerHTML=selectedCategory==="OFFERS"  
+?'<div class="empty-state">لا توجد عروض مضافة حالياً. ترقبوا عروض إيجل قريباً!</div>'  
+:'<div class="empty-state">لا توجد منتجات مطابقة للبحث. جرّب كلمة أخرى.</div>';  
   
 updateCartUI();  
 return;  
@@ -1332,6 +1217,7 @@ list.innerHTML=filtered.map(p=>{
 const out=p.status.includes("غير")||p.status.includes("نفد");  
 const qty=Number(cart[p.code]||0);  
 const whole=priceMode==="wholesale"&&p.wholesalePrice>0;  
+const offer=isOfferProduct(p);  
   
 const img=p.img?escapeHTML(p.img):DEFAULT_IMG;  
   
@@ -1352,6 +1238,8 @@ onerror="this.onerror=null;this.src='${DEFAULT_IMG}'">
 <div class="prod-meta">  
   
 <span class="prod-cat">${escapeHTML(p.cat)}</span>  
+  
+${offer?'<span class="prod-offer-badge">🔥 عرض خاص</span>':''}  
   
 <span class="prod-status ${out?"status-out":"status-in"}">  
 ${escapeHTML(p.status)}  
@@ -1396,93 +1284,6 @@ onclick="changeQty('${escapeHTML(p.code)}',-1)">−</button>
 }).join("");  
   
 updateCartUI();  
-  
-}  
-  
-/* دليل الخدمات الطبية */  
-  
-function initDirCategories(){  
-  
-const bar=document.getElementById("dir-categories-bar");  
-  
-const cats=[...new Set(allDirectory.map(d=>d.cat))];  
-  
-bar.innerHTML=  
-`<button class="cat-pill active" data-dir-cat="ALL">الكل (${allDirectory.length})</button>`+  
-cats.map(c=>  
-`<button class="cat-pill" data-dir-cat="${escapeHTML(c)}">${escapeHTML(c)}</button>`  
-).join("");  
-  
-}  
-  
-document.getElementById("dir-categories-bar").addEventListener("click",e=>{  
-  
-const b=e.target.closest("[data-dir-cat]");  
-  
-if(!b)return;  
-  
-selectedDirCategory=b.dataset.dirCat;  
-  
-document.querySelectorAll("#dir-categories-bar .cat-pill")  
-.forEach(x=>x.classList.toggle("active",x===b));  
-  
-renderDirectory();  
-  
-});  
-  
-function renderDirectory(){  
-  
-const q=document.getElementById("dir-search-input").value.trim().toLowerCase();  
-  
-const filtered=allDirectory.filter(d=>  
-(selectedDirCategory==="ALL"||d.cat===selectedDirCategory)&&  
-[d.name,d.address,d.cat].some(x=>x.toLowerCase().includes(q))  
-);  
-  
-const list=document.getElementById("directory-list");  
-  
-if(!filtered.length){  
-  
-list.innerHTML='<div class="empty-state">لا توجد بيانات مطابقة حاليًا.</div>';  
-  
-return;  
-  
-}  
-  
-list.innerHTML=filtered.map(d=>{  
-  
-const mobile=d.phone.startsWith("01")&&d.phone.length===11;  
-const wa=mobile?"2"+d.phone:"";  
-  
-return `  
-  
-<article class="dir-card">  
-  
-<div>  
-  
-<span class="dir-badge">${escapeHTML(d.cat)}</span>  
-  
-<div class="dir-name">${escapeHTML(d.name)}</div>  
-  
-${d.address?`<div class="dir-sub">📍 ${escapeHTML(d.address)}</div>`:""}  
-  
-${d.hours?`<div class="dir-hours">🕒 ${escapeHTML(d.hours)}</div>`:""}  
-  
-</div>  
-  
-<div class="dir-actions">  
-  
-${d.phone?`<a class="call-btn" href="tel:${escapeHTML(d.phone)}">☎ اتصال</a>`:""}  
-  
-${wa?`<a class="wa-dir-btn" href="https://wa.me/${wa}" target="_blank" rel="noopener">واتساب</a>`:""}  
-  
-</div>  
-  
-</article>  
-  
-`;  
-  
-}).join("");  
   
 }  
   
@@ -1537,10 +1338,7 @@ const count=getCartCount();
   
 const bar=document.getElementById("cart-bar");  
   
-const directoryOpen=  
-!document.getElementById("directory-view").classList.contains("hidden");  
-  
-bar.classList.toggle("hidden",count===0||directoryOpen);  
+bar.classList.toggle("hidden",count===0);  
   
 document.getElementById("cart-count").textContent=count;  
   
@@ -1782,7 +1580,6 @@ window.addEventListener("appinstalled", () => {
 /* تشغيل الموقع */  
   
 loadCatalog();  
-loadDirectory();  
 updateCartUI();  
   
 </script>  </body>  

@@ -211,6 +211,70 @@ display:block;
 font-size:10px;  
 color:var(--muted);  
 }  
+
+/* DELIVERY PARTNERS BAR */
+
+.delivery-section{
+max-width:1180px;
+margin:12px auto 0;
+padding:0 20px;
+}
+
+.delivery-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.deliv-btn{
+background:#fff;
+border:1px solid var(--line);
+border-radius:15px;
+padding:10px 12px;
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+color:var(--navy);
+box-shadow:0 4px 12px rgba(21,57,82,.04);
+transition:.2s;
+text-align:right;
+}
+
+.deliv-btn:hover{
+transform:translateY(-2px);
+border-color:#b8dceb;
+box-shadow:var(--shadow);
+}
+
+.deliv-logo{
+width:44px;
+height:44px;
+border-radius:11px;
+object-fit:cover;
+flex-shrink:0;
+background:#f8fbfd;
+border:1px solid var(--line);
+}
+
+.deliv-btn strong{
+display:block;
+font-size:12px;
+font-weight:900;
+color:var(--navy);
+line-height:1.4;
+}
+
+.deliv-btn small{
+display:block;
+font-size:10px;
+color:var(--green);
+font-weight:700;
+}
+
+.deliv-btn.post-btn small{
+color:#137a47;
+}
   
 /* OFFERS BANNER */  
   
@@ -538,7 +602,19 @@ font-size:11px;
 color:var(--muted);  
 margin:4px 0;  
 line-height:1.7;  
-}  
+}
+
+.offer-detail-box{
+background:linear-gradient(135deg,#fff8eb,#fff1dc);
+border:1px dashed #e69d35;
+border-radius:10px;
+padding:8px 10px;
+margin:6px 0;
+font-size:11px;
+font-weight:800;
+color:#9c5308;
+line-height:1.6;
+}
   
 .product-bottom{  
 display:flex;  
@@ -770,6 +846,13 @@ font-size:14px;
   
 .feature strong{font-size:9px}  
 .feature small{font-size:8px}  
+
+.delivery-section{padding:0 12px;margin-top:10px}
+.delivery-grid{grid-template-columns:1fr;gap:8px}
+.deliv-btn{padding:9px 12px;border-radius:13px}
+.deliv-logo{width:40px;height:40px}
+.deliv-btn strong{font-size:12px}
+.deliv-btn small{font-size:10px}
   
 .offers-banner{padding:0 12px;margin-top:12px}  
 .offers-card{padding:11px 13px;border-radius:14px}  
@@ -872,7 +955,40 @@ alt="Eagle Medical">
 <strong>احتياجاتك الطبية</strong>  
 <small>للبيت والعيادات</small>  
 </div>  
-</div>  </section>  <section class="offers-banner" onclick="openOffersPage()">  
+</div>  </section>
+
+<!-- أزرار شركات التوصيل والبريد المصري -->
+<section class="delivery-section">
+<div class="delivery-grid">
+
+<a class="deliv-btn" href="https://wa.me/201153099752?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%B9%D8%AA%D8%B1%D9%8A%D8%B3%20%D8%A5%D9%83%D8%B3%D8%A8%D8%B1%D9%8A%D8%B3%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D9%88%D8%B5%D9%8A%D9%84%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D8%A5%D9%8A%D8%AC%D9%84%20%D9%84%D9%84%D9%85%D8%B3%D8%AA%D9%84%D8%B2%D9%85%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B7%D8%A8%D9%8A%D8%A9" target="_blank" rel="noopener">
+<img class="deliv-logo" src="Images/atrees.jpg" alt="عتريس اكسبريس">
+<div>
+<strong>عتريس إكسبريس</strong>
+<small>💬 طلب توصيل واتساب</small>
+</div>
+</a>
+
+<a class="deliv-btn" href="https://wa.me/201010188694?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%85%D8%B9%D8%A7%D9%83%20%D8%A7%D9%84%D9%81%D8%B4%D9%86%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D9%88%D8%B5%D9%8A%D9%84%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D8%A5%D9%8A%D8%AC%D9%84%20%D9%84%D9%84%D9%85%D8%B3%D8%AA%D9%84%D8%B2%D9%85%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B7%D8%A8%D9%8A%D8%A9" target="_blank" rel="noopener">
+<img class="deliv-logo" src="Images/maak.jpg" alt="معاك الفشن">
+<div>
+<strong>معاك الفشن</strong>
+<small>💬 طلب توصيل واتساب</small>
+</div>
+</a>
+
+<a class="deliv-btn post-btn" href="https://egyptpost.gov.eg/ar-eg/home/eservices/%D8%A7%D8%AD%D8%B3%D8%A8-%D8%B4%D8%AD%D9%86%D8%AA%D9%83/" target="_blank" rel="noopener">
+<img class="deliv-logo" src="Images/egyptpost.jpg" alt="البريد المصري">
+<div>
+<strong>احسب شحنتك للمحافظات</strong>
+<small>📦 البريد المصري</small>
+</div>
+</a>
+
+</div>
+</section>
+
+<section class="offers-banner" onclick="openOffersPage()">  
 <div class="offers-card">  
 <div>  
 <strong>🔥 عروض وخصومات وبوانص إيجل</strong>  
@@ -1311,6 +1427,7 @@ const qty=Number(cart[p.code]||0);
 const whole=priceMode==="wholesale"&&p.wholesalePrice>0;  
 const isBonus=p.cat.includes("بونص")||p.cat.includes("بوانص");
 const isOffer=p.cat.includes("عروض")||p.cat.includes("العروض");
+const hasOfferDetails=(isBonus||isOffer)&&p.note;
   
 const img=p.img?escapeHTML(p.img):DEFAULT_IMG;  
   
@@ -1331,7 +1448,10 @@ ${escapeHTML(p.status)}
 </span>  
 </div>  
 <div class="prod-name">${escapeHTML(p.name)}</div>  
-${p.note?`<div class="prod-note">${escapeHTML(p.note)}</div>`:""}  
+${hasOfferDetails
+  ?`<div class="offer-detail-box">${escapeHTML(p.note)}</div>`
+  :(p.note?`<div class="prod-note">${escapeHTML(p.note)}</div>`:"")
+}  
 <div class="product-bottom">  
 <div class="prod-price ${whole?"wholesale":""}">  
 ${getActivePrice(p).toLocaleString("en-US")}  
@@ -1487,6 +1607,9 @@ items.map(x=>{
   
 const price=getActivePrice(x.product);  
 const sub=price*x.qty;  
+const offerTag=isOfferOrBonus(x.product)&&x.product.note
+  ?`<br><span style="color:#c45125;font-size:11px">🎁 ${escapeHTML(x.product.note)}</span>`
+  :"";
   
 return `  
   
@@ -1494,6 +1617,7 @@ return `
   
 <div>  
 <strong>${escapeHTML(x.product.name)}</strong>  
+${offerTag}
 <br>  
 <span style="color:#718596">  
 الكمية: ${x.qty} × ${price.toLocaleString("en-US")} ج.م  
@@ -1587,9 +1711,12 @@ const price=getActivePrice(x.product);
 const sub=price*x.qty;  
   
 total+=sub;  
+const bonusLine=isOfferOrBonus(x.product)&&x.product.note
+  ?`\n(${x.product.note})`
+  :"";
   
 lines.push(  
-`${i+1}. ${x.product.name}\nالكمية: ${x.qty} × ${price} = ${sub} ج.م`  
+`${i+1}. ${x.product.name}${bonusLine}\nالكمية: ${x.qty} × ${price} = ${sub} ج.م`  
 );  
   
 });  
